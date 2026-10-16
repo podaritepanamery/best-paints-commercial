@@ -10,6 +10,23 @@ assets/app.js         поведение (меню, модалка, FAQ, бри�
 assets/logo-bestpaints.png
 ```
 
+## Где лежит
+
+**Публичный адрес:** https://podaritepanamery.github.io/best-paints-commercial/
+Репозиторий: https://github.com/podaritepanamery/best-paints-commercial
+
+Деплой при любой правке:
+
+```bash
+git add -A && git commit -m "правка" && git push
+```
+
+GitHub Pages пересобирает сайт сам, обычно за минуту.
+
+Превью закрыто от индексации через `robots.txt`: боевой сайт будет на домене
+клиента, дубль в поиске ему только навредит. Когда понадобится открыть,
+удалите `Disallow: /` из `robots.txt`.
+
 Открыть локально:
 
 ```bash
