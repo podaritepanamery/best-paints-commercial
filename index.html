@@ -542,14 +542,10 @@
 
 
 <!-- ======================================================================
-     НАШИ РАБОТЫ  <<< БЛОК ПОД ФОТОГРАФИИ КЛИЕНТА
-     ----------------------------------------------------------------------
-     КАК ДОБАВИТЬ ФОТО: в нужном .shot замените блок
-         <div class="slot"> ... </div>
-     на  <img src="assets/works/01-before.jpg" alt="До начала работ"
-              width="1600" height="1200" loading="lazy" decoding="async">
-     Метки БЫЛО / СТАЛО (.shot__label) оставьте на месте.
-     Текст, цифры и количество кейсов правятся прямо здесь.
+     НАШИ РАБОТЫ - 7 реальных объектов Best Paints.
+     Фото лежат в assets/works/, подписи и цифры взяты из описаний клиента.
+     Метки «Было» / «Стало» проставлены там, где пара снимков очевидна
+     (кейсы 1, 2, 5, 6, 7). В кейсах 3 и 4 съёмка без явной пары, меток нет.
      ====================================================================== -->
 <section class="section" id="works">
   <div class="wrap">
@@ -557,118 +553,347 @@
     <div class="sec-head reveal">
       <h2 class="h2 dashed">Портфолио <em class="accent">выполненных объектов</em></h2>
       <p class="body">
-        Фотографии реализованных коммерческих объектов: до начала работ
-        и после сдачи. Блок наполняется по мере завершения проектов.
+        Производства и склады, офисы, спортивные и образовательные объекты,
+        фасады и металлоконструкции. Семь проектов с площадью, составом работ
+        и стоимостью.
       </p>
     </div>
 
     <div class="cases">
-
       <article class="case reveal">
-        <div>
+        <div class="case__info">
+          <h3 class="case__title">Производственное помещение ТЕХНОНИКОЛЬ</h3>
+          <p class="case__sub">Воскресенск, Московская область</p>
           <p class="case__h">Какие работы были проведены:</p>
           <ul class="dots dots--green">
-            <li>защита полов, окон, мебели и оборудования</li>
-            <li>локальный ремонт и шпаклевание стен</li>
-            <li>грунтование и окраска в 2 слоя</li>
-            <li>работа по зонам без остановки объекта</li>
+            <li>подготовка поверхностей к покраске</li>
+            <li>окрашивание производственных конструкций и поверхностей</li>
+            <li>все необходимые лакокрасочные материалы</li>
           </ul>
+          <p class="case__res"><b>Результат.</b> Ровное светлое покрытие стен и потолочных конструкций во всём цехе.</p>
           <div class="case__stats">
-            <p class="case__stat"><span>Срок выполнения работ</span><b class="is-ph">укажите</b></p>
-            <p class="case__stat"><span>Площадь покраски</span><b class="is-ph">укажите</b></p>
-            <p class="case__stat"><span>Тип объекта</span><b class="is-ph">укажите</b></p>
+            <p class="case__stat"><span>Площадь покраски</span><b>8 000 м²</b></p>
+            <p class="case__stat"><span>Стоимость под ключ</span><b>3 500 000 ₽</b></p>
+            <p class="case__stat"><span>Цена за м²</span><b>438 ₽</b></p>
           </div>
         </div>
         <div class="case__shots">
-          <div class="shot">
+          <figure class="shot">
             <span class="shot__label shot__label--before">Было</span>
-            <div class="slot"><i class="ph ph-image" aria-hidden="true"></i><b>Фото</b><span>1600 × 1200</span></div>
-          </div>
-          <div class="shot">
-            <span class="shot__label">Стало</span>
-            <div class="slot"><i class="ph ph-image" aria-hidden="true"></i><b>Фото</b><span>1600 × 1200</span></div>
-          </div>
-          <div class="shot">
+            <img src="assets/works/case1-1.jpg" alt="производственный цех ТЕХНОНИКОЛЬ, фото 1"
+                 width="964" height="1280" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
             <span class="shot__label shot__label--before">Было</span>
-            <div class="slot"><i class="ph ph-image" aria-hidden="true"></i><b>Фото</b><span>1600 × 1200</span></div>
-          </div>
-          <div class="shot">
+            <img src="assets/works/case1-2.jpg" alt="производственный цех ТЕХНОНИКОЛЬ, фото 2"
+                 width="963" height="1280" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
             <span class="shot__label">Стало</span>
-            <div class="slot"><i class="ph ph-image" aria-hidden="true"></i><b>Фото</b><span>1600 × 1200</span></div>
-          </div>
+            <img src="assets/works/case1-3.jpg" alt="производственный цех ТЕХНОНИКОЛЬ, фото 3"
+                 width="967" height="1280" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <span class="shot__label">Стало</span>
+            <img src="assets/works/case1-4.jpg" alt="производственный цех ТЕХНОНИКОЛЬ, фото 4"
+                 width="819" height="1280" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <span class="shot__label">Стало</span>
+            <img src="assets/works/case1-5.jpg" alt="производственный цех ТЕХНОНИКОЛЬ, фото 5"
+                 width="959" height="1280" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <span class="shot__label">Стало</span>
+            <img src="assets/works/case1-6.jpg" alt="производственный цех ТЕХНОНИКОЛЬ, фото 6"
+                 width="1000" height="1199" loading="lazy" decoding="async">
+          </figure>
         </div>
       </article>
-
       <article class="case reveal">
-        <div>
+        <div class="case__info">
+          <h3 class="case__title">Ребрендинг баскетбольного зала</h3>
+          <p class="case__sub">Комплексная перекраска интерьера</p>
           <p class="case__h">Какие работы были проведены:</p>
           <ul class="dots dots--green">
-            <li>безвоздушное нанесение на больших площадях</li>
-            <li>окраска стен, потолков и колонн</li>
-            <li>работа с подъёмной техникой</li>
-            <li>сменный график и ежедневный отчёт по объёму</li>
+            <li>подготовка поверхностей к покраске</li>
+            <li>перекраска стен и внутренних конструкций зала</li>
+            <li>переход от бело-синей гаммы к графитовой с оранжевыми акцентами</li>
           </ul>
+          <p class="case__res"><b>Результат.</b> Графит в сочетании с оранжевыми и белыми элементами дал контрастный интерьер в новой концепции.</p>
           <div class="case__stats">
-            <p class="case__stat"><span>Срок выполнения работ</span><b class="is-ph">укажите</b></p>
-            <p class="case__stat"><span>Площадь покраски</span><b class="is-ph">укажите</b></p>
-            <p class="case__stat"><span>Тип объекта</span><b class="is-ph">укажите</b></p>
+            <p class="case__stat"><span>Площадь покраски</span><b>1 800 м²</b></p>
+            <p class="case__stat"><span>Стоимость проекта</span><b>1 200 000 ₽</b></p>
+            <p class="case__stat"><span>Цена за м²</span><b>667 ₽</b></p>
           </div>
         </div>
         <div class="case__shots">
-          <div class="shot">
+          <figure class="shot">
             <span class="shot__label shot__label--before">Было</span>
-            <div class="slot"><i class="ph ph-image" aria-hidden="true"></i><b>Фото</b><span>1600 × 1200</span></div>
-          </div>
-          <div class="shot">
-            <span class="shot__label">Стало</span>
-            <div class="slot"><i class="ph ph-image" aria-hidden="true"></i><b>Фото</b><span>1600 × 1200</span></div>
-          </div>
-          <div class="shot">
+            <img src="assets/works/case2-1.jpg" alt="баскетбольный зал, фото 1"
+                 width="1000" height="747" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
             <span class="shot__label shot__label--before">Было</span>
-            <div class="slot"><i class="ph ph-image" aria-hidden="true"></i><b>Фото</b><span>1600 × 1200</span></div>
-          </div>
-          <div class="shot">
+            <img src="assets/works/case2-2.jpg" alt="баскетбольный зал, фото 2"
+                 width="1000" height="755" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
             <span class="shot__label">Стало</span>
-            <div class="slot"><i class="ph ph-image" aria-hidden="true"></i><b>Фото</b><span>1600 × 1200</span></div>
-          </div>
+            <img src="assets/works/case2-3.jpg" alt="баскетбольный зал, фото 3"
+                 width="1000" height="716" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <span class="shot__label">Стало</span>
+            <img src="assets/works/case2-4.jpg" alt="баскетбольный зал, фото 4"
+                 width="1000" height="745" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <span class="shot__label">Стало</span>
+            <img src="assets/works/case2-5.jpg" alt="баскетбольный зал, фото 5"
+                 width="1000" height="749" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <span class="shot__label">Стало</span>
+            <img src="assets/works/case2-6.jpg" alt="баскетбольный зал, фото 6"
+                 width="1000" height="730" loading="lazy" decoding="async">
+          </figure>
         </div>
       </article>
-
       <article class="case reveal">
-        <div>
+        <div class="case__info">
+          <h3 class="case__title">Центральный офис Biglion</h3>
+          <p class="case__sub">Покраска в сжатые сроки</p>
           <p class="case__h">Какие работы были проведены:</p>
           <ul class="dots dots--green">
-            <li>перекраска при смене арендатора</li>
-            <li>ремонт трещин и шлифовка</li>
-            <li>окраска в цвет фирменного стиля</li>
-            <li>ночные смены, сдача по этапам</li>
+            <li>подготовка поверхностей к окрашиванию</li>
+            <li>покраска стен и колонн в офисных помещениях</li>
+            <li>обновление оформления с сохранением фирменной оранжево-белой гаммы</li>
           </ul>
+          <p class="case__feat">Работы шли в действующем офисе, в ограниченные сроки.</p>
+          <p class="case__res"><b>Результат.</b> Обновлены поверхности в рабочих зонах, коридорах и общих пространствах. Фирменное оформление сохранено.</p>
           <div class="case__stats">
-            <p class="case__stat"><span>Срок выполнения работ</span><b class="is-ph">укажите</b></p>
-            <p class="case__stat"><span>Площадь покраски</span><b class="is-ph">укажите</b></p>
-            <p class="case__stat"><span>Тип объекта</span><b class="is-ph">укажите</b></p>
+            <p class="case__stat"><span>Площадь покраски</span><b>620 м²</b></p>
+            <p class="case__stat"><span>Стоимость проекта</span><b>760 000 ₽</b></p>
+            <p class="case__stat"><span>Цена за м²</span><b>1 226 ₽</b></p>
           </div>
         </div>
         <div class="case__shots">
-          <div class="shot">
-            <span class="shot__label shot__label--before">Было</span>
-            <div class="slot"><i class="ph ph-image" aria-hidden="true"></i><b>Фото</b><span>1600 × 1200</span></div>
-          </div>
-          <div class="shot">
-            <span class="shot__label">Стало</span>
-            <div class="slot"><i class="ph ph-image" aria-hidden="true"></i><b>Фото</b><span>1600 × 1200</span></div>
-          </div>
-          <div class="shot">
-            <span class="shot__label shot__label--before">Было</span>
-            <div class="slot"><i class="ph ph-image" aria-hidden="true"></i><b>Фото</b><span>1600 × 1200</span></div>
-          </div>
-          <div class="shot">
-            <span class="shot__label">Стало</span>
-            <div class="slot"><i class="ph ph-image" aria-hidden="true"></i><b>Фото</b><span>1600 × 1200</span></div>
-          </div>
+          <figure class="shot">
+            <img src="assets/works/case3-1.jpg" alt="офис Biglion, фото 1"
+                 width="1000" height="745" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <img src="assets/works/case3-2.jpg" alt="офис Biglion, фото 2"
+                 width="1000" height="742" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <img src="assets/works/case3-3.jpg" alt="офис Biglion, фото 3"
+                 width="1000" height="748" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <img src="assets/works/case3-4.jpg" alt="офис Biglion, фото 4"
+                 width="1000" height="737" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <img src="assets/works/case3-5.jpg" alt="офис Biglion, фото 5"
+                 width="927" height="1280" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <img src="assets/works/case3-6.jpg" alt="офис Biglion, фото 6"
+                 width="1000" height="766" loading="lazy" decoding="async">
+          </figure>
         </div>
       </article>
-
+      <article class="case reveal">
+        <div class="case__info">
+          <h3 class="case__title">Складское помещение в Хотьково</h3>
+          <p class="case__sub">Московская область</p>
+          <p class="case__h">Какие работы были проведены:</p>
+          <ul class="dots dots--green">
+            <li>подготовка поверхностей к окрашиванию</li>
+            <li>покраска стен складского помещения</li>
+            <li>покраска потолков и потолочных конструкций</li>
+          </ul>
+          <p class="case__feat">Высокие потолки, инженерные коммуникации, вентиляция и складское оборудование: труднодоступные участки и защита техники.</p>
+          <p class="case__res"><b>Результат.</b> Стены и потолки получили светлое покрытие, помещение стало аккуратнее и однороднее.</p>
+          <div class="case__stats">
+            <p class="case__stat"><span>Площадь покраски</span><b>1 360 м²</b></p>
+            <p class="case__stat"><span>Стоимость проекта</span><b>990 000 ₽</b></p>
+            <p class="case__stat"><span>Цена за м²</span><b>728 ₽</b></p>
+          </div>
+        </div>
+        <div class="case__shots">
+          <figure class="shot">
+            <img src="assets/works/case4-1.jpg" alt="склад в Хотьково, фото 1"
+                 width="1000" height="741" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <img src="assets/works/case4-2.jpg" alt="склад в Хотьково, фото 2"
+                 width="1000" height="749" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <img src="assets/works/case4-3.jpg" alt="склад в Хотьково, фото 3"
+                 width="1000" height="759" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <img src="assets/works/case4-4.jpg" alt="склад в Хотьково, фото 4"
+                 width="785" height="1280" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <img src="assets/works/case4-5.jpg" alt="склад в Хотьково, фото 5"
+                 width="745" height="1280" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <img src="assets/works/case4-6.jpg" alt="склад в Хотьково, фото 6"
+                 width="731" height="1280" loading="lazy" decoding="async">
+          </figure>
+        </div>
+      </article>
+      <article class="case reveal">
+        <div class="case__info">
+          <h3 class="case__title">Ребрендинг техцентра SHACMAN</h3>
+          <p class="case__sub">Металлоконструкции и фасадные элементы</p>
+          <p class="case__h">Какие работы были проведены:</p>
+          <ul class="dots dots--green">
+            <li>зачистка металлических поверхностей от старого покрытия</li>
+            <li>подготовка металлоконструкций к окрашиванию</li>
+            <li>покраска в соответствии с новым оформлением техцентра</li>
+          </ul>
+          <p class="case__feat">Наружные металлоконструкции сложной геометрии: арочные элементы и вертикальные стойки.</p>
+          <p class="case__res"><b>Результат.</b> Конструкции получили тёмное покрытие под новое оформление бренда.</p>
+          <div class="case__stats">
+            <p class="case__stat"><span>Площадь покраски</span><b>350 м²</b></p>
+            <p class="case__stat"><span>Стоимость проекта</span><b>650 000 ₽</b></p>
+            <p class="case__stat"><span>Цена за м²</span><b>1 857 ₽</b></p>
+          </div>
+        </div>
+        <div class="case__shots">
+          <figure class="shot">
+            <span class="shot__label shot__label--before">Было</span>
+            <img src="assets/works/case5-1.jpg" alt="техцентр SHACMAN, фото 1"
+                 width="1000" height="583" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <span class="shot__label shot__label--before">Было</span>
+            <img src="assets/works/case5-2.jpg" alt="техцентр SHACMAN, фото 2"
+                 width="1000" height="561" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <span class="shot__label">Стало</span>
+            <img src="assets/works/case5-3.jpg" alt="техцентр SHACMAN, фото 3"
+                 width="1000" height="726" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <span class="shot__label">Стало</span>
+            <img src="assets/works/case5-4.jpg" alt="техцентр SHACMAN, фото 4"
+                 width="1000" height="574" loading="lazy" decoding="async">
+          </figure>
+        </div>
+      </article>
+      <article class="case reveal">
+        <div class="case__info">
+          <h3 class="case__title">Фасад школы №1547</h3>
+          <p class="case__sub">Москва, ул. Белореченская, 47</p>
+          <p class="case__h">Какие работы были проведены:</p>
+          <ul class="dots dots--green">
+            <li>подготовка фасадных поверхностей к окрашиванию</li>
+            <li>герметизация межпанельных швов</li>
+            <li>покраска наружных стен здания</li>
+            <li>обновление цветового оформления фасада</li>
+          </ul>
+          <p class="case__feat">Трёхэтажное здание с большим количеством оконных проёмов и межпанельных соединений.</p>
+          <p class="case__res"><b>Результат.</b> Фасад обновлён в бело-синей гамме, межпанельные швы загерметизированы.</p>
+          <div class="case__stats">
+            <p class="case__stat"><span>Площадь работ</span><b>2 500 м²</b></p>
+            <p class="case__stat"><span>Стоимость проекта</span><b>2 800 000 ₽</b></p>
+            <p class="case__stat"><span>Цена за м²</span><b>1 120 ₽</b></p>
+          </div>
+        </div>
+        <div class="case__shots">
+          <figure class="shot">
+            <span class="shot__label shot__label--before">Было</span>
+            <img src="assets/works/case6-1.jpg" alt="фасад школы №1547, фото 1"
+                 width="1000" height="1080" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <span class="shot__label shot__label--before">Было</span>
+            <img src="assets/works/case6-2.jpg" alt="фасад школы №1547, фото 2"
+                 width="1000" height="701" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <span class="shot__label shot__label--before">Было</span>
+            <img src="assets/works/case6-3.jpg" alt="фасад школы №1547, фото 3"
+                 width="1000" height="659" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <span class="shot__label">Стало</span>
+            <img src="assets/works/case6-4.jpg" alt="фасад школы №1547, фото 4"
+                 width="1000" height="1064" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <span class="shot__label">Стало</span>
+            <img src="assets/works/case6-5.jpg" alt="фасад школы №1547, фото 5"
+                 width="1000" height="684" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <span class="shot__label">Стало</span>
+            <img src="assets/works/case6-6.jpg" alt="фасад школы №1547, фото 6"
+                 width="1000" height="696" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <span class="shot__label">Стало</span>
+            <img src="assets/works/case6-7.jpg" alt="фасад школы №1547, фото 7"
+                 width="1000" height="824" loading="lazy" decoding="async">
+          </figure>
+        </div>
+      </article>
+      <article class="case reveal">
+        <div class="case__info">
+          <h3 class="case__title">Пожарные лестницы и кровельные ограждения</h3>
+          <p class="case__sub">Коммерческие объекты</p>
+          <p class="case__h">Какие работы были проведены:</p>
+          <ul class="dots dots--green">
+            <li>подготовка металлических поверхностей к окрашиванию</li>
+            <li>покраска 25 наружных пожарных лестниц</li>
+            <li>покраска 1 400 пог. м кровельных ограждений</li>
+            <li>обновление защитно-декоративного покрытия</li>
+          </ul>
+          <p class="case__feat">Работы на высоте, конструкции сложной геометрии: ступени, стойки, перила и соединительные элементы.</p>
+          <p class="case__res"><b>Результат.</b> Лестницы и ограждения получили обновлённое покрытие с единым цветовым оформлением.</p>
+          <div class="case__stats">
+            <p class="case__stat"><span>Объём работ</span><b>25 лестниц и 1 400 пог. м</b></p>
+            <p class="case__stat"><span>Стоимость проекта</span><b>3 800 000 ₽</b></p>
+          </div>
+        </div>
+        <div class="case__shots">
+          <figure class="shot">
+            <span class="shot__label shot__label--before">Было</span>
+            <img src="assets/works/case7-1.jpg" alt="пожарные лестницы и кровельные ограждения, фото 1"
+                 width="502" height="590" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <span class="shot__label shot__label--before">Было</span>
+            <img src="assets/works/case7-2.jpg" alt="пожарные лестницы и кровельные ограждения, фото 2"
+                 width="478" height="616" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <span class="shot__label">Стало</span>
+            <img src="assets/works/case7-3.jpg" alt="пожарные лестницы и кровельные ограждения, фото 3"
+                 width="997" height="1280" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <span class="shot__label">Стало</span>
+            <img src="assets/works/case7-4.jpg" alt="пожарные лестницы и кровельные ограждения, фото 4"
+                 width="871" height="1280" loading="lazy" decoding="async">
+          </figure>
+          <figure class="shot">
+            <span class="shot__label">Стало</span>
+            <img src="assets/works/case7-5.jpg" alt="пожарные лестницы и кровельные ограждения, фото 5"
+                 width="789" height="1280" loading="lazy" decoding="async">
+          </figure>
+        </div>
+      </article>
     </div>
   </div>
 </section>

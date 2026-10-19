@@ -599,17 +599,29 @@ em.accent,.accent{
   box-shadow:var(--shadow-sm);
 }
 .section--warm .case{ box-shadow:none; }
-.case__h{ font-size:14px; font-weight:700; letter-spacing:.02em; margin-bottom:16px; }
+.case__title{ font-size:clamp(20px,1.7vw,25px); line-height:1.15; font-weight:700; }
+.case__sub{ margin-top:7px; font-size:16px; color:var(--green); }
+.case__h{ margin-top:24px; font-size:14px; font-weight:700; letter-spacing:.02em; margin-bottom:14px; }
 .case .dots{ font-size:16px; line-height:1.4; }
-.case__stats{ margin-top:28px; display:grid; gap:16px; }
+.case__feat{
+  margin-top:18px; padding-left:16px;
+  border-left:3px solid var(--green-pale);
+  font-size:15px; line-height:1.45; color:var(--ink-2);
+}
+.case__res{ margin-top:18px; font-size:16px; line-height:1.45; color:var(--ink-2); }
+.case__res b{ color:var(--ink); font-weight:700; }
+.case__stats{ margin-top:26px; display:grid; gap:16px; }
 .case__stat span{ display:block; font-size:14px; color:var(--ink-2); }
 .case__stat b{ display:block; margin-top:2px; font-size:26px; font-weight:700; line-height:1.1; }
 /* незаполненное значение: приглушено, чтобы не выглядело как реальная цифра */
 .case__stat b.is-ph{ font-size:17px; font-weight:500; color:#8d897f; }
 
 .case__shots{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; align-content:start; }
-.shot{ position:relative; aspect-ratio:4/3; border-radius:var(--r-img); overflow:hidden; background:var(--bg-soft); }
-.shot img{ width:100%; height:100%; object-fit:cover; }
+/* нечётное число снимков: последний занимает оба столбца, ряд не рвётся */
+.case__shots .shot:last-child:nth-child(odd){ grid-column:span 2; aspect-ratio:16/9; }
+.shot{ position:relative; margin:0; aspect-ratio:4/3; border-radius:var(--r-img); overflow:hidden; background:var(--bg-soft); }
+.shot img{ width:100%; height:100%; object-fit:cover; transition:transform .7s var(--ease); }
+.shot:hover img{ transform:scale(1.04); }
 .shot__label{
   position:absolute; left:10px; top:10px; z-index:2;
   padding:6px 14px; border-radius:4px;
