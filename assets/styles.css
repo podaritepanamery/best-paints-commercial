@@ -147,6 +147,28 @@ em.accent,.accent{
 .wrap{ width:100%; max-width:var(--maxw); margin-inline:auto; padding-inline:var(--gutter); }
 /* узкий контейнер: карточки портфолио читаются лучше, когда лента не во всю ширину */
 .wrap--narrow{ max-width:1060px; }
+
+/* ---------- мазок кистью как фоновый декор ------------------------------
+   Фирменный приём с lp.best-paints-bp.ru: бледные пятна краски за секциями.
+   Слой чисто декоративный - не ловит клики, лежит под контентом,
+   на узких экранах выключается (там он только съедает место). */
+.stroke{
+  position:absolute; z-index:0;
+  background-repeat:no-repeat; background-size:contain;
+  pointer-events:none; user-select:none;
+}
+.stroke--sage{ background-image:url('img/stroke-sage.svg'); }
+.stroke--pale{ background-image:url('img/stroke-pale.svg'); }
+/* Секция, из которой что-то торчит (мазок или вынесенное за край фото),
+   обязана обрезать вылет, иначе появится горизонтальная прокрутка.
+   Контент поднимается над декоративным слоем. */
+.is-clipped{ position:relative; overflow:hidden; }
+.is-clipped > .wrap{ position:relative; z-index:1; }
+/* положения мазков */
+.stroke--tr{ top:-70px; right:-90px; width:min(440px,34vw); aspect-ratio:1/1; transform:rotate(14deg); }
+.stroke--bl{ bottom:-80px; left:-110px; width:min(420px,32vw); aspect-ratio:1/1; transform:rotate(-168deg); }
+.stroke--soft{ opacity:.45; }
+@media (max-width:900px){ .stroke{ display:none; } }
 .section{ padding-block:var(--sp-sec); }
 /* плотнее по вертикали: для блоков, где контент сам по себе крупный */
 .section--tight{ padding-block:clamp(44px,4.6vw,70px); }
@@ -612,7 +634,31 @@ em.accent,.accent{
 /* ==========================================================================
    14. ЧТО ДЕЛАЕМ  (иконка + заголовок + текст, две колонки справа)
    ========================================================================== */
-.does{ display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:clamp(30px,4vw,70px); align-items:start; }
+.does{ display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:clamp(30px,4vw,70px); align-items:center; }
+
+/* ---------- фото с выносом за край экрана -------------------------------
+   Приём с LP: снимок уходит за левую границу окна, текст держит сетку.
+   Вытягиваем ровно на отступ контейнера: (maxw - 100vw)/2 - gutter.
+   Секции нужен overflow:hidden (класс .has-stroke его уже даёт),
+   иначе вылет даст горизонтальную прокрутку. */
+.does__media{
+  position:relative; margin:0;
+  border-radius:0 var(--r-block) var(--r-block) 0;
+  overflow:hidden;
+  margin-left:calc(-1 * var(--gutter));
+}
+.does__media img{
+  width:100%; height:100%;
+  aspect-ratio:4/4.3;
+  object-fit:cover;
+}
+@media (min-width:1101px){
+  .does__media{ margin-left:calc((var(--maxw) - 100vw) / 2 - var(--gutter)); }
+}
+@media (max-width:980px){
+  .does__media{ margin-left:calc(-1 * var(--gutter)); margin-right:calc(-1 * var(--gutter)); border-radius:var(--r-card); }
+  .does__media img{ aspect-ratio:16/10; }
+}
 .does__aside .body{ margin-top:22px; }
 .does__aside .btn{ margin-top:30px; }
 .does__card{
@@ -625,12 +671,16 @@ em.accent,.accent{
 .does__card b{ display:block; font-size:17px; }
 .does__card .does__role{ display:block; margin-top:2px; font-size:15px; color:var(--ink-2); }
 
-.does__list{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(26px,3vw,42px); }
+.does__list{
+  margin-top:clamp(36px,4vw,62px);
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(26px,3vw,42px);
+}
 .does__item{ display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:start; }
 .does__item i{ font-size:27px; color:var(--green); line-height:1; margin-top:2px; }
 .does__item h3{ font-size:20px; font-weight:700; line-height:1.2; }
 .does__item p{ margin-top:9px; font-size:16px; line-height:1.45; color:var(--ink-2); }
-@media (max-width:980px){ .does{ grid-template-columns:1fr; } }
+@media (max-width:980px){ .does{ grid-template-columns:1fr; } .does__list{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (max-width:560px){ .does__list{ grid-template-columns:1fr; } }
 
 /* ==========================================================================
@@ -853,8 +903,28 @@ em.accent,.accent{
 /* ==========================================================================
    19. ЭТАПЫ
    ========================================================================== */
-.steps{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(18px,2.1vw,28px); }
+/* Шахматные ступени: два ряда, нижний сдвинут вправо, между карточками
+   зелёные стрелки. Сдвиг через transform - не меняет ширину карточек,
+   вылет за контейнер обрезает overflow секции. */
+.steps{ display:grid; gap:clamp(18px,2.1vw,28px); }
+.steps__row{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(18px,2.1vw,28px); }
+.steps__row--offset{ transform:translateX(5%); }
+.step__arrow{
+  position:absolute; top:50%; right:0; z-index:2;
+  transform:translate(50%,-50%);
+  display:grid; place-items:center;
+  width:34px; height:34px;
+  border-radius:var(--r-pill);
+  background:var(--green); color:#fff;
+}
+.step__arrow i{ font-size:17px; }
+@media (max-width:900px){
+  .steps__row{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .steps__row--offset{ transform:none; }
+  .step__arrow{ display:none; }
+}
 .step{
+  position:relative;
   padding:clamp(24px,2.5vw,34px);
   background:#fff; border-radius:var(--r-card);
   box-shadow:var(--shadow-sm);
@@ -865,8 +935,7 @@ em.accent,.accent{
 .step__n{ display:block; font-size:34px; font-weight:700; line-height:1; color:var(--green); margin-bottom:16px; }
 .step h3{ font-size:20px; font-weight:700; line-height:1.2; }
 .step p{ margin-top:10px; font-size:16px; line-height:1.45; color:var(--ink-2); }
-@media (max-width:900px){ .steps{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
-@media (max-width:560px){ .steps{ grid-template-columns:1fr; } }
+@media (max-width:560px){ .steps__row{ grid-template-columns:1fr; } }
 
 /* ==========================================================================
    20. БРИФ
