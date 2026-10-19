@@ -164,6 +164,22 @@ em.accent,.accent{
   .dashed::before{ position:static; display:block; margin-bottom:18px; }
 }
 
+/* Надзаголовок секции (с коммерческого макета).
+   Отступ слева равен отступу .dashed, чтобы текст шёл одной колонкой с заголовком. */
+.eyebrow{
+  display:block;
+  padding-left:70px;
+  margin-bottom:16px;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--green);
+}
+.eyebrow--flush{ padding-left:0; }
+.on-dark .eyebrow{ color:#8fc073; }
+@media (max-width:700px){ .eyebrow{ padding-left:0; } }
+
 .sec-head{ margin-bottom:clamp(34px,4vw,58px); }
 .sec-head .body{ margin-top:20px; }
 
@@ -291,6 +307,17 @@ em.accent,.accent{
   color:var(--green-700);
   box-shadow:0 8px 20px -12px rgba(68,118,49,.5);
 }
+
+/* круглые кнопки мессенджеров, как в коммерческом макете */
+.hdr__msg{ display:flex; align-items:center; gap:9px; margin-left:4px; }
+.hdr__msg a{
+  display:grid; place-items:center; width:40px; height:40px;
+  border:1px solid var(--line); border-radius:var(--r-pill);
+  color:var(--green-700);
+  transition:border-color .3s var(--ease), background .3s var(--ease), color .3s var(--ease);
+}
+.hdr__msg a i{ font-size:20px; }
+.hdr__msg a:hover{ border-color:var(--green); background:var(--green-tint); }
 
 .hdr__quick{ display:flex; align-items:center; gap:26px; margin-left:14px; }
 .hdr__quick a{ display:inline-flex; align-items:center; gap:9px; font-size:16px; color:var(--ink); transition:color .3s var(--ease); }
