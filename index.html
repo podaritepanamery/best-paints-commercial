@@ -135,16 +135,26 @@
     </div>
 
     <div class="hero__media reveal" style="--d:120ms">
-      <a class="rating" href="https://yandex.ru/maps/org/145742352470/" target="_blank" rel="noopener">
-        <span class="rating__mark" aria-hidden="true">Я</span>
-        <span>
-          <span class="rating__val"><b>5,0</b><span>Яндекс Карты</span></span>
-          <span class="rating__stars" aria-hidden="true">★★★★★</span>
-        </span>
-      </a>
+      <div class="ratings">
+        <a class="rating" href="https://yandex.ru/maps/org/145742352470/" target="_blank" rel="noopener">
+          <span class="rating__mark" aria-hidden="true">Я</span>
+          <span>
+            <span class="rating__val"><b>5,0</b><span>Яндекс Карты</span></span>
+            <span class="rating__stars" aria-hidden="true">★★★★★</span>
+          </span>
+        </a>
+        <!-- ССЫЛКА: подставьте адрес карточки компании в 2ГИС и замените div на <a href="..."> -->
+        <div class="rating">
+          <span class="rating__mark rating__mark--gis" aria-hidden="true">2<i>ГИС</i></span>
+          <span>
+            <span class="rating__val"><b>5,0</b><span>2ГИС</span></span>
+            <span class="rating__stars" aria-hidden="true">★★★★★</span>
+          </span>
+        </div>
+      </div>
       <img src="assets/img/hero-office.jpg"
-           alt="Светлый офис с окрашенными стенами и потолком"
-           width="1300" height="1000" fetchpriority="high" decoding="async">
+           alt="Офис с окрашенными стенами, колоннами и открытым потолком"
+           width="1400" height="788" fetchpriority="high" decoding="async">
       <p class="hero__tag">Срок. Смета. Один ответственный.</p>
     </div>
 
