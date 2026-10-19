@@ -158,7 +158,90 @@
     sync();
   }
 
-  /* ---------- 8. бриф: сборка текста, копия, скачивание, мессенджеры ---- */
+  /* ---------- 8. числа в портфолио: подгонка размера под одну строку ----
+     .case__stat b в CSS уже white-space:nowrap; если число всё равно не
+     помещается в свою колонку (длинное "25 лестниц и 1 400 пог. м" или
+     узкая колонка на мобильном), здесь ему подбирается font-size поменьше -
+     вместо переноса "1 200" / "000 \u20bd" на две строки.
+     Размер подбирается ОДИН на всю строку цифр внутри карточки (а не
+     отдельно для каждого числа): если одно число длинное, вся строка
+     уменьшается вместе с ним, иначе соседние цифры разъезжаются по
+     размеру и строка выглядит собранной из случайных кусков. ------------ */
+  var statGroups = document.querySelectorAll('.case__stats');
+
+  if (statGroups.length) {
+    var MIN_STAT_FONT = 12;
+
+    var shrinkToFit = function (el) {
+      el.style.fontSize = '';
+      var s = parseFloat(getComputedStyle(el).fontSize);
+      while (el.scrollWidth > el.clientWidth + 1 && s > MIN_STAT_FONT) {
+        s -= 1;
+        el.style.fontSize = s + 'px';
+      }
+    };
+
+    var fitStatNumbers = function () {
+      statGroups.forEach(function (group) {
+        var stats = group.querySelectorAll('.case__stat');
+        var nums  = group.querySelectorAll('.case__stat b');
+        if (!nums.length) return;
+
+        stats.forEach(function (p) { p.classList.remove('case__stat--wide'); });
+        nums.forEach(function (el) { el.style.fontSize = ''; });
+
+        var size = parseFloat(getComputedStyle(nums[0]).fontSize);
+        var fits = function (list) {
+          return [].every.call(list, function (el) { return el.scrollWidth <= el.clientWidth + 1; });
+        };
+
+        // шаг 1: вся строка цифр уменьшается вместе, одним размером
+        while (!fits(nums) && size > MIN_STAT_FONT) {
+          size -= 1;
+          nums.forEach(function (el) { el.style.fontSize = size + 'px'; });
+        }
+
+        // шаг 2: если на минимальном размере число всё равно не влезло - это
+        // не число, а длинная фраза ("25 лестниц и 1 400 пог. м"). Ей отдаётся
+        // вся ширина карточки отдельной строкой, а не продавливается дальше
+        // нечитаемым кеглем; остальные цифры в группе пересчитываются заново,
+        // без оглядки на эту фразу, и могут вернуться к полному размеру.
+        var overflowing = [].filter.call(nums, function (el) { return el.scrollWidth > el.clientWidth + 1; });
+        if (overflowing.length) {
+          overflowing.forEach(function (el) {
+            el.closest('.case__stat').classList.add('case__stat--wide');
+            shrinkToFit(el);
+          });
+
+          var rest = [].filter.call(nums, function (el) { return overflowing.indexOf(el) === -1; });
+          if (rest.length) {
+            rest.forEach(function (el) { el.style.fontSize = ''; });
+            var restSize = parseFloat(getComputedStyle(rest[0]).fontSize);
+            while (!fits(rest) && restSize > MIN_STAT_FONT) {
+              restSize -= 1;
+              rest.forEach(function (el) { el.style.fontSize = restSize + 'px'; });
+            }
+          }
+        }
+      });
+    };
+
+    // слайды карусели лежат за пределами экрана, но не display:none -
+    // ширина колонок известна сразу, дожидаться видимости не нужно
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(fitStatNumbers);
+    } else {
+      fitStatNumbers();
+    }
+
+    var statTick;
+    window.addEventListener('resize', function () {
+      clearTimeout(statTick);
+      statTick = setTimeout(fitStatNumbers, 150);
+    }, { passive: true });
+  }
+
+  /* ---------- 9. бриф: сборка текста, копия, скачивание, мессенджеры ---- */
   var form = document.getElementById('brief-form');
 
   if (form) {
