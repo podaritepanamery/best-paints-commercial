@@ -610,25 +610,15 @@ em.accent,.accent{
 .does{ display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:clamp(30px,4vw,70px); align-items:start; }
 .does__aside .body{ margin-top:22px; }
 .does__aside .btn{ margin-top:30px; }
-/* Портрет технического директора с белой подписью поверх нижнего левого угла */
-.director{
-  position:relative;
-  margin:clamp(28px,3.2vw,44px) 0 0;
-  max-width:420px;
-  border-radius:var(--r-card);
-  overflow:hidden;
-  background:var(--bg-warm);
+.does__card{
+  margin-top:34px; display:flex; align-items:center; gap:14px;
+  padding:14px; border-radius:var(--r-card); background:#fff;
+  box-shadow:var(--shadow-sm); max-width:340px;
 }
-.director img{ width:100%; height:auto; }
-.director__label{
-  position:absolute; left:16px; bottom:16px;
-  padding:12px 20px;
-  border-radius:10px;
-  background:#fff;
-  box-shadow:var(--shadow-sm);
-}
-.director__label b{ display:block; font-size:16px; font-weight:700; line-height:1.2; }
-.director__label span{ display:block; margin-top:3px; font-size:14px; color:var(--ink-2); }
+.section--warm .does__card{ box-shadow:none; }
+.does__card .person__mono{ width:56px; height:56px; font-size:19px; background:var(--green-tint); box-shadow:none; }
+.does__card b{ display:block; font-size:17px; }
+.does__card .does__role{ display:block; margin-top:2px; font-size:15px; color:var(--ink-2); }
 
 .does__list{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(26px,3vw,42px); }
 .does__item{ display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:start; }
@@ -658,12 +648,15 @@ em.accent,.accent{
   display:flex;
   gap:clamp(16px,2vw,26px);
   overflow-x:auto;
+  /* overflow-y обязателен явно: при overflow-x:auto браузер сам делает
+     overflow-y:auto, лента перехватывает колесо и страница перестаёт скроллиться */
+  overflow-y:hidden;
   overscroll-behavior-x:contain;
   scroll-snap-type:x mandatory;
   scroll-behavior:smooth;
   scrollbar-width:none;
   -ms-overflow-style:none;
-  padding-bottom:6px;   /* чтобы тень карточки не срезалась */
+  padding:10px 0 14px;  /* запас под тень, её срезает overflow-y:hidden */
 }
 .cases::-webkit-scrollbar{ display:none; }
 .cases:focus-visible{ outline:2px solid var(--green); outline-offset:6px; border-radius:var(--r-card); }
@@ -680,25 +673,38 @@ em.accent,.accent{
   box-shadow:var(--shadow-sm);
 }
 
+/* Стрелки вплотную друг к другу и счётчик под ними - раскладка с LP */
 .cases-ctrl{
-  display:flex; align-items:center; justify-content:center; gap:16px;
+  display:flex; flex-direction:column; align-items:center; gap:14px;
   margin-top:clamp(26px,3vw,40px);
 }
+.cases-ctrl__row{ display:flex; gap:4px; }
 .cases-btn{
   display:grid; place-items:center;
-  width:56px; height:56px;
+  width:60px; height:60px;
   border:0; border-radius:var(--r-btn);
   background:var(--green); color:#fff;
   cursor:pointer;
   transition:background .3s var(--ease), opacity .3s var(--ease), transform .3s var(--ease);
 }
-.cases-btn i{ font-size:24px; }
-.cases-btn:hover:not(:disabled){ background:var(--green-600); transform:translateY(-1px); }
+.cases-btn i{ font-size:26px; }
+.cases-btn:hover:not(:disabled){ background:var(--green-600); }
 .cases-btn:active:not(:disabled){ transform:scale(.96); }
-.cases-btn:disabled{ opacity:.3; cursor:default; }
-.cases-count{ font-size:16px; color:var(--ink-2); min-width:58px; text-align:center; }
-.cases-count b{ color:var(--ink); font-weight:700; }
+.cases-btn:disabled{ opacity:.28; cursor:default; }
+.cases-count{ font-size:15px; color:var(--ink-inv-2); }
+.cases-count b{ color:var(--ink-inv); font-weight:700; }
 .section--warm .case{ box-shadow:none; }
+.case__info{ position:relative; }
+/* вертикальный водяной знак у левого края карточки, как на LP */
+.case__mark{
+  position:absolute; left:0; bottom:0;
+  writing-mode:vertical-rl; transform:rotate(180deg);
+  font-size:clamp(26px,2.6vw,40px); font-weight:700; letter-spacing:.01em;
+  color:rgba(255,255,255,.06);
+  pointer-events:none; user-select:none;
+  display:none;
+}
+
 .case__title{ font-size:clamp(20px,1.7vw,25px); line-height:1.15; font-weight:700; }
 .case__sub{ margin-top:7px; font-size:16px; color:var(--green); }
 .case__h{ margin-top:24px; font-size:14px; font-weight:700; letter-spacing:.02em; margin-bottom:14px; }
@@ -743,7 +749,35 @@ em.accent,.accent{
 .slot b{ font-size:12px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--green-700); }
 .slot span{ font-size:12px; color:var(--ink-2); }
 
-@media (max-width:900px){ .case{ grid-template-columns:1fr; } }
+/* --- тёмный вариант секции портфолио (как на lp.best-paints-bp.ru) --- */
+.section--dark .case{ background:#262626; box-shadow:none; }
+.section--dark .case__info{ padding-left:clamp(32px,3vw,54px); }
+.section--dark .case__mark{ display:block; }
+.section--dark .case__title,
+.section--dark .case__h{ color:var(--ink-inv); }
+.section--dark .case__sub{ color:#8fc073; }
+.section--dark .case .dots li{ color:var(--ink-inv-2); }
+.section--dark .case .dots li::before{ background:#8fc073; }
+.section--dark .case__feat{ color:var(--ink-inv-2); border-left-color:rgba(143,192,115,.35); }
+.section--dark .case__res{ color:var(--ink-inv-2); }
+.section--dark .case__res b{ color:var(--ink-inv); }
+.section--dark .case__stat span{ color:var(--ink-inv-2); }
+.section--dark .case__stat b{ color:var(--ink-inv); }
+.section--dark .case__stat b.is-ph{ color:#8a8780; }
+.section--dark .shot{ background:#1f1f1f; }
+.section--dark .shot__label--before{ background:#fff; color:var(--ink); }
+.section--dark .slot{
+  background:linear-gradient(170deg, rgba(143,192,115,.1) 0%, rgba(38,38,38,.9) 100%);
+  border-color:rgba(143,192,115,.35);
+}
+.section--dark .slot b{ color:#a9cf90; }
+.section--dark .slot span{ color:var(--ink-inv-2); }
+
+@media (max-width:900px){
+  .case{ grid-template-columns:1fr; }
+  .section--dark .case__info{ padding-left:0; }
+  .section--dark .case__mark{ display:none; }
+}
 
 /* ==========================================================================
    17. ВИДЕО

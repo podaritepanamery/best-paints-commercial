@@ -447,15 +447,13 @@
       </p>
       <a class="btn" href="#estimate">Обсудить состав работ <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
 
-      <figure class="director">
-        <img src="assets/team/director-pavel.jpg"
-             alt="Павел Королёв, технический директор Best Paints"
-             width="750" height="870" loading="lazy" decoding="async">
-        <figcaption class="director__label">
+      <div class="does__card">
+        <span class="person__mono" aria-hidden="true">ПК</span>
+        <span>
           <b>Павел Королёв</b>
-          <span>Технический директор</span>
-        </figcaption>
-      </figure>
+          <span class="does__role">Технический директор</span>
+        </span>
+      </div>
     </div>
 
     <div class="does__list">
@@ -578,7 +576,7 @@
      Метки «Было» / «Стало» проставлены там, где пара снимков очевидна
      (кейсы 1, 2, 5, 6, 7). В кейсах 3 и 4 съёмка без явной пары, меток нет.
      ====================================================================== -->
-<section class="section" id="works">
+<section class="section section--dark on-dark" id="works">
   <div class="wrap">
 
     <div class="sec-head reveal">
@@ -595,6 +593,7 @@
          aria-label="Портфолио объектов, прокручивается по горизонтали">
       <article class="case reveal">
         <div class="case__info">
+          <span class="case__mark" aria-hidden="true">bestpaints</span>
           <h3 class="case__title">Производственное помещение ТЕХНОНИКОЛЬ</h3>
           <p class="case__sub">Воскресенск, Московская область</p>
           <p class="case__h">Какие работы были проведены:</p>
@@ -645,6 +644,7 @@
       </article>
       <article class="case reveal">
         <div class="case__info">
+          <span class="case__mark" aria-hidden="true">bestpaints</span>
           <h3 class="case__title">Ребрендинг баскетбольного зала</h3>
           <p class="case__sub">Комплексная перекраска интерьера</p>
           <p class="case__h">Какие работы были проведены:</p>
@@ -695,6 +695,7 @@
       </article>
       <article class="case reveal">
         <div class="case__info">
+          <span class="case__mark" aria-hidden="true">bestpaints</span>
           <h3 class="case__title">Центральный офис Biglion</h3>
           <p class="case__sub">Покраска в сжатые сроки</p>
           <p class="case__h">Какие работы были проведены:</p>
@@ -740,6 +741,7 @@
       </article>
       <article class="case reveal">
         <div class="case__info">
+          <span class="case__mark" aria-hidden="true">bestpaints</span>
           <h3 class="case__title">Складское помещение в Хотьково</h3>
           <p class="case__sub">Московская область</p>
           <p class="case__h">Какие работы были проведены:</p>
@@ -785,6 +787,7 @@
       </article>
       <article class="case reveal">
         <div class="case__info">
+          <span class="case__mark" aria-hidden="true">bestpaints</span>
           <h3 class="case__title">Ребрендинг техцентра SHACMAN</h3>
           <p class="case__sub">Металлоконструкции и фасадные элементы</p>
           <p class="case__h">Какие работы были проведены:</p>
@@ -825,6 +828,7 @@
       </article>
       <article class="case reveal">
         <div class="case__info">
+          <span class="case__mark" aria-hidden="true">bestpaints</span>
           <h3 class="case__title">Фасад школы №1547</h3>
           <p class="case__sub">Москва, ул. Белореченская, 47</p>
           <p class="case__h">Какие работы были проведены:</p>
@@ -882,6 +886,7 @@
       </article>
       <article class="case reveal">
         <div class="case__info">
+          <span class="case__mark" aria-hidden="true">bestpaints</span>
           <h3 class="case__title">Пожарные лестницы и кровельные ограждения</h3>
           <p class="case__sub">Коммерческие объекты</p>
           <p class="case__h">Какие работы были проведены:</p>
@@ -929,13 +934,15 @@
     </div>
 
     <div class="cases-ctrl">
-      <button class="cases-btn" type="button" data-cases="-1" aria-label="Предыдущий объект" aria-controls="cases">
-        <i class="ph ph-caret-left" aria-hidden="true"></i>
-      </button>
+      <div class="cases-ctrl__row">
+        <button class="cases-btn" type="button" data-cases="-1" aria-label="Предыдущий объект" aria-controls="cases">
+          <i class="ph ph-caret-left" aria-hidden="true"></i>
+        </button>
+        <button class="cases-btn" type="button" data-cases="1" aria-label="Следующий объект" aria-controls="cases">
+          <i class="ph ph-caret-right" aria-hidden="true"></i>
+        </button>
+      </div>
       <p class="cases-count" aria-live="polite"><b id="cases-cur">1</b> / <span id="cases-total">7</span></p>
-      <button class="cases-btn" type="button" data-cases="1" aria-label="Следующий объект" aria-controls="cases">
-        <i class="ph ph-caret-right" aria-hidden="true"></i>
-      </button>
     </div>
   </div>
 </section>
