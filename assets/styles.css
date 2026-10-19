@@ -145,6 +145,8 @@ em.accent,.accent{
 
 /* ---------- 5. РАСКЛАДКА ------------------------------------------------- */
 .wrap{ width:100%; max-width:var(--maxw); margin-inline:auto; padding-inline:var(--gutter); }
+/* узкий контейнер: карточки портфолио читаются лучше, когда лента не во всю ширину */
+.wrap--narrow{ max-width:1060px; }
 .section{ padding-block:var(--sp-sec); }
 .section--warm{ background:var(--bg-warm); }
 .section--soft{ background:var(--bg-soft); }
@@ -691,18 +693,17 @@ em.accent,.accent{
 .cases-btn:hover:not(:disabled){ background:var(--green-600); }
 .cases-btn:active:not(:disabled){ transform:scale(.96); }
 .cases-btn:disabled{ opacity:.28; cursor:default; }
-.cases-count{ font-size:15px; color:var(--ink-inv-2); }
-.cases-count b{ color:var(--ink-inv); font-weight:700; }
+.cases-count{ font-size:15px; color:var(--ink-2); }
+.cases-count b{ color:var(--ink); font-weight:700; }
 .section--warm .case{ box-shadow:none; }
-.case__info{ position:relative; }
+.case__info{ position:relative; padding-left:clamp(30px,2.8vw,48px); }
 /* вертикальный водяной знак у левого края карточки, как на LP */
 .case__mark{
   position:absolute; left:0; bottom:0;
   writing-mode:vertical-rl; transform:rotate(180deg);
-  font-size:clamp(26px,2.6vw,40px); font-weight:700; letter-spacing:.01em;
-  color:rgba(255,255,255,.06);
+  font-size:clamp(24px,2.4vw,36px); font-weight:700; letter-spacing:.01em;
+  color:rgba(27,27,27,.07);
   pointer-events:none; user-select:none;
-  display:none;
 }
 
 .case__title{ font-size:clamp(20px,1.7vw,25px); line-height:1.15; font-weight:700; }
@@ -749,34 +750,10 @@ em.accent,.accent{
 .slot b{ font-size:12px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--green-700); }
 .slot span{ font-size:12px; color:var(--ink-2); }
 
-/* --- тёмный вариант секции портфолио (как на lp.best-paints-bp.ru) --- */
-.section--dark .case{ background:#262626; box-shadow:none; }
-.section--dark .case__info{ padding-left:clamp(32px,3vw,54px); }
-.section--dark .case__mark{ display:block; }
-.section--dark .case__title,
-.section--dark .case__h{ color:var(--ink-inv); }
-.section--dark .case__sub{ color:#8fc073; }
-.section--dark .case .dots li{ color:var(--ink-inv-2); }
-.section--dark .case .dots li::before{ background:#8fc073; }
-.section--dark .case__feat{ color:var(--ink-inv-2); border-left-color:rgba(143,192,115,.35); }
-.section--dark .case__res{ color:var(--ink-inv-2); }
-.section--dark .case__res b{ color:var(--ink-inv); }
-.section--dark .case__stat span{ color:var(--ink-inv-2); }
-.section--dark .case__stat b{ color:var(--ink-inv); }
-.section--dark .case__stat b.is-ph{ color:#8a8780; }
-.section--dark .shot{ background:#1f1f1f; }
-.section--dark .shot__label--before{ background:#fff; color:var(--ink); }
-.section--dark .slot{
-  background:linear-gradient(170deg, rgba(143,192,115,.1) 0%, rgba(38,38,38,.9) 100%);
-  border-color:rgba(143,192,115,.35);
-}
-.section--dark .slot b{ color:#a9cf90; }
-.section--dark .slot span{ color:var(--ink-inv-2); }
-
 @media (max-width:900px){
   .case{ grid-template-columns:1fr; }
-  .section--dark .case__info{ padding-left:0; }
-  .section--dark .case__mark{ display:none; }
+  .case__info{ padding-left:0; }
+  .case__mark{ display:none; }  /* в одну колонку места под знак нет */
 }
 
 /* ==========================================================================
