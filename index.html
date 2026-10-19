@@ -591,7 +591,8 @@
       </p>
     </div>
 
-    <div class="cases">
+    <div class="cases" id="cases" role="group" tabindex="0"
+         aria-label="Портфолио объектов, прокручивается по горизонтали">
       <article class="case reveal">
         <div class="case__info">
           <h3 class="case__title">Производственное помещение ТЕХНОНИКОЛЬ</h3>
@@ -925,6 +926,16 @@
           </figure>
         </div>
       </article>
+    </div>
+
+    <div class="cases-ctrl">
+      <button class="cases-btn" type="button" data-cases="-1" aria-label="Предыдущий объект" aria-controls="cases">
+        <i class="ph ph-caret-left" aria-hidden="true"></i>
+      </button>
+      <p class="cases-count" aria-live="polite"><b id="cases-cur">1</b> / <span id="cases-total">7</span></p>
+      <button class="cases-btn" type="button" data-cases="1" aria-label="Следующий объект" aria-controls="cases">
+        <i class="ph ph-caret-right" aria-hidden="true"></i>
+      </button>
     </div>
   </div>
 </section>

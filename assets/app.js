@@ -109,7 +109,56 @@
     });
   });
 
-  /* ---------- 7. бриф: сборка текста, копия, скачивание, мессенджеры ---- */
+  /* ---------- 7. карусель портфолио ------------------------------------- */
+  var cases = document.getElementById('cases');
+
+  if (cases) {
+    var slides  = cases.querySelectorAll('.case');
+    var curEl   = document.getElementById('cases-cur');
+    var totalEl = document.getElementById('cases-total');
+    var navBtns = document.querySelectorAll('[data-cases]');
+
+    if (totalEl) totalEl.textContent = String(slides.length);
+
+    // шаг прокрутки = ширина карточки + зазор между карточками
+    function step() {
+      if (slides.length < 2) return cases.clientWidth;
+      return slides[1].offsetLeft - slides[0].offsetLeft;
+    }
+
+    function activeIndex() {
+      var i = Math.round(cases.scrollLeft / step());
+      return Math.min(Math.max(i, 0), slides.length - 1);
+    }
+
+    function sync() {
+      var i = activeIndex();
+      if (curEl) curEl.textContent = String(i + 1);
+      // правый край с запасом в 2px: дробные значения scrollLeft
+      var atStart = cases.scrollLeft <= 1;
+      var atEnd   = cases.scrollLeft >= cases.scrollWidth - cases.clientWidth - 2;
+      navBtns.forEach(function (b) {
+        b.disabled = (b.dataset.cases === '-1') ? atStart : atEnd;
+      });
+    }
+
+    navBtns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        cases.scrollBy({ left: step() * Number(b.dataset.cases), behavior: reduced ? 'auto' : 'smooth' });
+      });
+    });
+
+    var tick;
+    cases.addEventListener('scroll', function () {
+      clearTimeout(tick);
+      tick = setTimeout(sync, 90);
+    }, { passive: true });
+
+    window.addEventListener('resize', sync, { passive: true });
+    sync();
+  }
+
+  /* ---------- 8. бриф: сборка текста, копия, скачивание, мессенджеры ---- */
   var form = document.getElementById('brief-form');
 
   if (form) {
