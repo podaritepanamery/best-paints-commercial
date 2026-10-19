@@ -148,27 +148,11 @@ em.accent,.accent{
 /* узкий контейнер: карточки портфолио читаются лучше, когда лента не во всю ширину */
 .wrap--narrow{ max-width:1060px; }
 
-/* ---------- мазок кистью как фоновый декор ------------------------------
-   Фирменный приём с lp.best-paints-bp.ru: бледные пятна краски за секциями.
-   Слой чисто декоративный - не ловит клики, лежит под контентом,
-   на узких экранах выключается (там он только съедает место). */
-.stroke{
-  position:absolute; z-index:0;
-  background-repeat:no-repeat; background-size:contain;
-  pointer-events:none; user-select:none;
-}
-.stroke--sage{ background-image:url('img/stroke-sage.svg'); }
-.stroke--pale{ background-image:url('img/stroke-pale.svg'); }
-/* Секция, из которой что-то торчит (мазок или вынесенное за край фото),
-   обязана обрезать вылет, иначе появится горизонтальная прокрутка.
-   Контент поднимается над декоративным слоем. */
+/* Секция, из которой что-то торчит (вынесенное за край фото), обязана
+   обрезать вылет, иначе появится горизонтальная прокрутка. Контент
+   поднимается над декоративным слоем. */
 .is-clipped{ position:relative; overflow:hidden; }
 .is-clipped > .wrap{ position:relative; z-index:1; }
-/* положения мазков */
-.stroke--tr{ top:-70px; right:-90px; width:min(440px,34vw); aspect-ratio:1/1; transform:rotate(14deg); }
-.stroke--bl{ bottom:-80px; left:-110px; width:min(420px,32vw); aspect-ratio:1/1; transform:rotate(-168deg); }
-.stroke--soft{ opacity:.45; }
-@media (max-width:900px){ .stroke{ display:none; } }
 .section{ padding-block:var(--sp-sec); }
 /* плотнее по вертикали: для блоков, где контент сам по себе крупный */
 .section--tight{ padding-block:clamp(44px,4.6vw,70px); }
@@ -639,7 +623,7 @@ em.accent,.accent{
 /* ---------- фото с выносом за край экрана -------------------------------
    Приём с LP: снимок уходит за левую границу окна, текст держит сетку.
    Вытягиваем ровно на отступ контейнера: (maxw - 100vw)/2 - gutter.
-   Секции нужен overflow:hidden (класс .has-stroke его уже даёт),
+   Секции нужен overflow:hidden (класс .is-clipped его уже даёт),
    иначе вылет даст горизонтальную прокрутку. */
 .does__media{
   position:relative; margin:0;
