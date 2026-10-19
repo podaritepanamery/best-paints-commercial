@@ -610,15 +610,25 @@ em.accent,.accent{
 .does{ display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:clamp(30px,4vw,70px); align-items:start; }
 .does__aside .body{ margin-top:22px; }
 .does__aside .btn{ margin-top:30px; }
-.does__card{
-  margin-top:34px; display:flex; align-items:center; gap:14px;
-  padding:14px; border-radius:var(--r-card); background:#fff;
-  box-shadow:var(--shadow-sm); max-width:340px;
+/* Портрет технического директора с белой подписью поверх нижнего левого угла */
+.director{
+  position:relative;
+  margin:clamp(28px,3.2vw,44px) 0 0;
+  max-width:420px;
+  border-radius:var(--r-card);
+  overflow:hidden;
+  background:var(--bg-warm);
 }
-.section--warm .does__card{ box-shadow:none; }
-.does__card .person__mono{ width:56px; height:56px; font-size:19px; background:var(--green-tint); box-shadow:none; }
-.does__card b{ display:block; font-size:17px; }
-.does__card .does__role{ display:block; margin-top:2px; font-size:15px; color:var(--ink-2); }
+.director img{ width:100%; height:auto; }
+.director__label{
+  position:absolute; left:16px; bottom:16px;
+  padding:12px 20px;
+  border-radius:10px;
+  background:#fff;
+  box-shadow:var(--shadow-sm);
+}
+.director__label b{ display:block; font-size:16px; font-weight:700; line-height:1.2; }
+.director__label span{ display:block; margin-top:3px; font-size:14px; color:var(--ink-2); }
 
 .does__list{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(26px,3vw,42px); }
 .does__item{ display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:start; }
