@@ -618,31 +618,8 @@ em.accent,.accent{
 /* ==========================================================================
    14. ЧТО ДЕЛАЕМ  (иконка + заголовок + текст, две колонки справа)
    ========================================================================== */
-.does{ display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:clamp(30px,4vw,70px); align-items:center; }
-
-/* ---------- фото с выносом за край экрана -------------------------------
-   Приём с LP: снимок уходит за левую границу окна, текст держит сетку.
-   Вытягиваем ровно на отступ контейнера: (maxw - 100vw)/2 - gutter.
-   Секции нужен overflow:hidden (класс .is-clipped его уже даёт),
-   иначе вылет даст горизонтальную прокрутку. */
-.does__media{
-  position:relative; margin:0;
-  border-radius:0 var(--r-block) var(--r-block) 0;
-  overflow:hidden;
-  margin-left:calc(-1 * var(--gutter));
-}
-.does__media img{
-  width:100%; height:100%;
-  aspect-ratio:4/4.3;
-  object-fit:cover;
-}
-@media (min-width:1101px){
-  .does__media{ margin-left:calc((var(--maxw) - 100vw) / 2 - var(--gutter)); }
-}
-@media (max-width:980px){
-  .does__media{ margin-left:calc(-1 * var(--gutter)); margin-right:calc(-1 * var(--gutter)); border-radius:var(--r-card); }
-  .does__media img{ aspect-ratio:16/10; }
-}
+.does{ display:grid; }
+.does__aside{ max-width:640px; }
 .does__aside .body{ margin-top:22px; }
 .does__aside .btn{ margin-top:30px; }
 .does__card{
@@ -664,7 +641,7 @@ em.accent,.accent{
 .does__item i{ font-size:27px; color:var(--green); line-height:1; margin-top:2px; }
 .does__item h3{ font-size:20px; font-weight:700; line-height:1.2; }
 .does__item p{ margin-top:9px; font-size:16px; line-height:1.45; color:var(--ink-2); }
-@media (max-width:980px){ .does{ grid-template-columns:1fr; } .does__list{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:980px){ .does__list{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (max-width:560px){ .does__list{ grid-template-columns:1fr; } }
 
 /* ==========================================================================
