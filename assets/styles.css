@@ -815,7 +815,7 @@ em.accent,.accent{
 /* ==========================================================================
    17. ВИДЕО
    ========================================================================== */
-.videos{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(18px,2.2vw,30px); }
+.videos{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(14px,1.6vw,24px); }
 .vid__frame{
   padding:10px; background:#fff; border-radius:var(--r-card);
   box-shadow:var(--shadow-sm);
@@ -832,10 +832,8 @@ em.accent,.accent{
   border-radius:var(--r-pill); background:#fff; color:var(--green);
   font-size:24px; box-shadow:var(--shadow-md);
 }
-.vid__cap{ margin-top:18px; }
-.vid__cap h3{ font-size:20px; font-weight:700; line-height:1.2; }
-.vid__cap p{ margin-top:8px; font-size:16px; line-height:1.45; color:var(--ink-2); }
-@media (max-width:760px){ .videos{ grid-template-columns:1fr; } }
+@media (max-width:900px){ .videos{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:560px){ .videos{ grid-template-columns:1fr; } }
 
 /* ==========================================================================
    18. СТОИМОСТЬ  (слева список в две колонки, справа «чек»)
