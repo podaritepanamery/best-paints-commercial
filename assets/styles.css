@@ -161,8 +161,11 @@ em.accent,.accent{
 .section--soft{ background:var(--bg-soft); }
 .section--dark{ background:var(--bg-dark); }
 
-/* Заголовок секции с зелёным тире слева - главный приём LP. */
-.dashed{ position:relative; padding-left:70px; }
+/* Заголовок секции с зелёным тире слева - главный приём LP.
+   Отступ ровно под тире (30px) + небольшой зазор, чтобы сам текст
+   заголовка начинался на одной вертикали с остальным контентом секции
+   (буллеты, карточки, тело текста), а не был сдвинут вправо тире. */
+.dashed{ position:relative; padding-left:44px; }
 .dashed::before{
   content:"";
   position:absolute;
@@ -179,7 +182,7 @@ em.accent,.accent{
    Отступ слева равен отступу .dashed, чтобы текст шёл одной колонкой с заголовком. */
 .eyebrow{
   display:block;
-  padding-left:70px;
+  padding-left:44px;
   margin-bottom:16px;
   font-size:13px;
   font-weight:600;
