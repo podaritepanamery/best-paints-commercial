@@ -1057,7 +1057,12 @@ dialog.modal::backdrop{ background:rgba(27,27,27,.5); }
 .modal__close i{ font-size:23px; }
 .modal h3{ font-size:26px; font-weight:700; line-height:1.15; }
 .modal p{ margin-top:14px; font-size:16px; line-height:1.45; color:var(--ink-2); }
+.tech-form{ margin-top:24px; display:grid; gap:16px; }
 .modal__btns{ margin-top:26px; display:grid; gap:11px; }
+/* и .tech-form, и .modal__btns сами задают display - без этого правила
+   атрибут [hidden] на них бы ничего не прятал (его отбивает специфичность). */
+.tech-form[hidden],
+.modal__btns[hidden]{ display:none; }
 .modal__wa{ background:#25D366; border-color:#25D366; color:#06331a; }
 .modal__wa:hover{ background:#1fbe5a; border-color:#1fbe5a; color:#06331a; }
 .modal__tg{ background:#2AABEE; border-color:#2AABEE; color:#042a3d; }

@@ -6,7 +6,8 @@
 (function () {
   'use strict';
 
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduced  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var WA_PHONE = '79263485565'; // общий номер WhatsApp - бриф-форма и форма вызова технолога
 
   /* ---------- 1. высота шапки в CSS-переменную ------------------------- */
   var hdr = document.getElementById('hdr');
@@ -76,27 +77,67 @@
     revealables.forEach(function (el) { io.observe(el); });
   }
 
-  /* ---------- 5. модалка обратного звонка ------------------------------- */
-  var modal = document.getElementById('callback');
+  /* ---------- 5. модалки (обратный звонок, вызов технолога) -------------
+     [data-modal-open] без значения открывает #callback (как раньше),
+     со значением - модалку с этим id: data-modal-open="technologist". */
+  var modals = document.querySelectorAll('dialog.modal');
+
+  function openModal(id) {
+    var m = document.getElementById(id);
+    if (!m) return;
+    if (typeof m.showModal === 'function') m.showModal();
+    else m.setAttribute('open', '');
+  }
 
   document.addEventListener('click', function (e) {
-    if (e.target.closest('[data-modal-open]')) {
+    var opener = e.target.closest('[data-modal-open]');
+    if (opener) {
       e.preventDefault();
       setMenu(false);
-      if (modal && typeof modal.showModal === 'function') modal.showModal();
-      else if (modal) modal.setAttribute('open', '');
+      openModal(opener.getAttribute('data-modal-open') || 'callback');
     }
-    if (e.target.closest('[data-modal-close]') && modal) modal.close();
+    var closer = e.target.closest('[data-modal-close]');
+    if (closer) {
+      var dlg = closer.closest('dialog.modal');
+      if (dlg) dlg.close();
+    }
   });
 
   // клик по подложке закрывает окно
-  if (modal) {
+  modals.forEach(function (modal) {
     modal.addEventListener('click', function (e) {
       if (e.target !== modal) return;
       var r = modal.getBoundingClientRect();
       var outside = e.clientX < r.left || e.clientX > r.right ||
                     e.clientY < r.top  || e.clientY > r.bottom;
       if (outside) modal.close();
+    });
+  });
+
+  /* ---------- 5a. форма "вызвать технолога": имя + телефон --------------
+     Два обязательных поля. По сабмиту собираем текст и подставляем его
+     в ссылку WhatsApp (Telegram текст в ссылку не принимает - так же,
+     как и остальные telegram-ссылки на сайте), дальше пользователь сам
+     нажимает и уходит в мессенджер. */
+  var techForm = document.getElementById('tech-form');
+
+  if (techForm) {
+    var techOut = document.getElementById('tech-out');
+    var techNote = document.getElementById('tech-note');
+    var techWa = document.getElementById('tech-wa');
+
+    techForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (typeof techForm.reportValidity === 'function' && !techForm.reportValidity()) return;
+
+      var name = techForm.elements['Имя'].value.trim();
+      var phone = techForm.elements['Телефон'].value.trim();
+      var text = 'Здравствуйте! Хочу вызвать технолога.\nИмя: ' + name + '\nТелефон: ' + phone;
+
+      if (techWa) techWa.href = 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(text);
+      techForm.hidden = true;
+      if (techOut) techOut.hidden = false;
+      if (techNote) techNote.hidden = false;
     });
   }
 
@@ -250,7 +291,6 @@
     var waLink   = document.getElementById('brief-wa');
     var copyBtn  = document.getElementById('brief-copy');
     var dlBtn    = document.getElementById('brief-dl');
-    var WA_PHONE = '79254796759';
 
     function buildBrief() {
       var lines = ['Запрос на смету. Best Paints', ''];
