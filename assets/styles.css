@@ -793,19 +793,6 @@ em.accent,.accent{
 }
 .shot__label--before{ background:rgba(27,27,27,.72); }
 
-/* пустой слот под фото */
-.slot{
-  position:absolute; inset:0;
-  display:grid; place-content:center; justify-items:center; gap:9px;
-  padding:16px; text-align:center;
-  background:linear-gradient(170deg,var(--green-tint) 0%,#e4dfd1 100%);
-  border:2px dashed rgba(68,118,49,.4);
-  border-radius:var(--r-img);
-}
-.slot i{ font-size:26px; color:var(--green); opacity:.6; }
-.slot b{ font-size:12px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--green-700); }
-.slot span{ font-size:12px; color:var(--ink-2); }
-
 @media (max-width:900px){
   .case{ grid-template-columns:1fr; }
   .case__info{ padding-left:0; }
@@ -823,14 +810,11 @@ em.accent,.accent{
 }
 .section--warm .vid__frame{ box-shadow:none; }
 .vid:hover .vid__frame{ transform:translateY(-3px); box-shadow:var(--shadow-md); }
-.vid__media{ position:relative; aspect-ratio:16/9; border-radius:var(--r-img); overflow:hidden; background:var(--bg-soft); }
+/* Реальные ролики - портретные (сняты на телефон), поэтому карточка
+   тоже портретная 9/16, а не классические 16/9. */
+.vid__media{ position:relative; aspect-ratio:9/16; border-radius:var(--r-img); overflow:hidden; background:var(--bg-soft); }
 .vid__media video,.vid__media iframe,.vid__media img{
   position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border:0;
-}
-.vid__play{
-  display:grid; place-items:center; width:58px; height:58px;
-  border-radius:var(--r-pill); background:#fff; color:var(--green);
-  font-size:24px; box-shadow:var(--shadow-md);
 }
 @media (max-width:900px){ .videos{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (max-width:560px){ .videos{ grid-template-columns:1fr; } }

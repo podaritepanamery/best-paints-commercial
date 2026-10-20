@@ -893,13 +893,8 @@
 
 
 <!-- ======================================================================
-     ВИДЕО  <<< БЛОК ПОД 4 ВИДЕО КЛИЕНТА
-     ----------------------------------------------------------------------
-     Вместо <div class="slot"> ... </div> внутри .vid__media вставьте:
-       <video src="assets/video/01.mp4" poster="assets/video/01.jpg"
-              controls preload="none" playsinline></video>
-     или embed:
-       <iframe src="ССЫЛКА_EMBED" title="Название" loading="lazy" allowfullscreen></iframe>
+     ВИДЕО  -  4 видео с объектов клиента, autoplay + loop + muted
+     (автовоспроизведение в браузере работает только без звука).
      ====================================================================== -->
 <section class="section section--warm" id="video">
   <div class="wrap">
@@ -914,10 +909,8 @@
       <article class="vid reveal">
         <div class="vid__frame">
           <div class="vid__media">
-            <div class="slot">
-              <span class="vid__play" aria-hidden="true"><i class="ph ph-play"></i></span>
-              <b>Видео 1</b><span>16:9, mp4 или embed</span>
-            </div>
+            <video src="assets/video/01.mp4" poster="assets/video/01.jpg"
+                   autoplay muted loop playsinline controls preload="auto"></video>
           </div>
         </div>
       </article>
@@ -925,10 +918,8 @@
       <article class="vid reveal" style="--d:70ms">
         <div class="vid__frame">
           <div class="vid__media">
-            <div class="slot">
-              <span class="vid__play" aria-hidden="true"><i class="ph ph-play"></i></span>
-              <b>Видео 2</b><span>16:9, mp4 или embed</span>
-            </div>
+            <video src="assets/video/02.mp4" poster="assets/video/02.jpg"
+                   autoplay muted loop playsinline controls preload="auto"></video>
           </div>
         </div>
       </article>
@@ -936,10 +927,8 @@
       <article class="vid reveal" style="--d:140ms">
         <div class="vid__frame">
           <div class="vid__media">
-            <div class="slot">
-              <span class="vid__play" aria-hidden="true"><i class="ph ph-play"></i></span>
-              <b>Видео 3</b><span>16:9, mp4 или embed</span>
-            </div>
+            <video src="assets/video/03.mp4" poster="assets/video/03.jpg"
+                   autoplay muted loop playsinline controls preload="auto"></video>
           </div>
         </div>
       </article>
@@ -947,10 +936,8 @@
       <article class="vid reveal" style="--d:210ms">
         <div class="vid__frame">
           <div class="vid__media">
-            <div class="slot">
-              <span class="vid__play" aria-hidden="true"><i class="ph ph-play"></i></span>
-              <b>Видео 4</b><span>16:9, mp4 или embed</span>
-            </div>
+            <video src="assets/video/04.mp4" poster="assets/video/04.jpg"
+                   autoplay muted loop playsinline controls preload="auto"></video>
           </div>
         </div>
       </article>
