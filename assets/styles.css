@@ -162,27 +162,30 @@ em.accent,.accent{
 .section--dark{ background:var(--bg-dark); }
 
 /* Заголовок секции с зелёным тире слева - главный приём LP.
-   Отступ ровно под тире (30px) + небольшой зазор, чтобы сам текст
-   заголовка начинался на одной вертикали с остальным контентом секции
-   (буллеты, карточки, тело текста), а не был сдвинут вправо тире. */
-.dashed{ position:relative; padding-left:44px; }
+   Текст заголовка начинается ровно на одной вертикали с остальным
+   контентом секции (буллеты, карточки, тело текста) - без отступа.
+   Само тире выносится в поле слева, за эту линию: right:100%+10px
+   задаёт постоянный зазор до текста независимо от ширины тире, а сама
+   ширина сжимается на узких десктопных экранах (min(30px, gutter-14px)),
+   чтобы тире не вылезало за пределы секции и не ловило горизонтальную
+   прокрутку. */
+.dashed{ position:relative; padding-left:0; }
 .dashed::before{
   content:"";
   position:absolute;
-  left:0; top:.52em;
-  width:30px; height:3px;
+  right:calc(100% + 10px); top:.52em;
+  width:min(30px, calc(var(--gutter) - 14px)); height:3px;
   background:var(--green);
 }
 @media (max-width:700px){
-  .dashed{ padding-left:0; }
-  .dashed::before{ position:static; display:block; margin-bottom:18px; }
+  .dashed::before{ position:static; right:auto; width:30px; display:block; margin-bottom:18px; }
 }
 
 /* Надзаголовок секции (с коммерческого макета).
-   Отступ слева равен отступу .dashed, чтобы текст шёл одной колонкой с заголовком. */
+   Без отступа - текст идёт одной колонкой с заголовком и остальным контентом. */
 .eyebrow{
   display:block;
-  padding-left:44px;
+  padding-left:0;
   margin-bottom:16px;
   font-size:13px;
   font-weight:600;
