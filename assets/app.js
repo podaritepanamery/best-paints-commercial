@@ -81,6 +81,7 @@
      [data-modal-open] без значения открывает #callback (как раньше),
      со значением - модалку с этим id: data-modal-open="technologist". */
   var modals = document.querySelectorAll('dialog.modal');
+  var packageChoice = ''; // какое решение выбрали перед открытием формы #package
 
   function openModal(id) {
     var m = document.getElementById(id);
@@ -94,7 +95,9 @@
     if (opener) {
       e.preventDefault();
       setMenu(false);
-      openModal(opener.getAttribute('data-modal-open') || 'callback');
+      var modalId = opener.getAttribute('data-modal-open') || 'callback';
+      if (modalId === 'package') packageChoice = opener.getAttribute('data-package') || '';
+      openModal(modalId);
     }
     var closer = e.target.closest('[data-modal-close]');
     if (closer) {
@@ -138,6 +141,30 @@
       techForm.hidden = true;
       if (techOut) techOut.hidden = false;
       if (techNote) techNote.hidden = false;
+    });
+  }
+
+  /* ---------- 5b. форма "выбрать решение": имя + телефон ---------------- */
+  var packageForm = document.getElementById('package-form');
+
+  if (packageForm) {
+    var packageOut = document.getElementById('package-out');
+    var packageNote = document.getElementById('package-note');
+    var packageWa = document.getElementById('package-wa');
+
+    packageForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (typeof packageForm.reportValidity === 'function' && !packageForm.reportValidity()) return;
+
+      var name = packageForm.elements['Имя'].value.trim();
+      var phone = packageForm.elements['Телефон'].value.trim();
+      var text = 'Здравствуйте! Хочу выбрать решение' +
+        (packageChoice ? ' "' + packageChoice + '"' : '') + '.\nИмя: ' + name + '\nТелефон: ' + phone;
+
+      if (packageWa) packageWa.href = 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(text);
+      packageForm.hidden = true;
+      if (packageOut) packageOut.hidden = false;
+      if (packageNote) packageNote.hidden = false;
     });
   }
 

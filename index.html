@@ -341,7 +341,7 @@
           <li>Уборка</li>
           <li>Ночные работы</li>
         </ul>
-        <a class="btn btn--outline" href="#estimate">Выбрать решение <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        <button class="btn btn--outline" type="button" data-modal-open="package" data-package="Быстрое обновление">Выбрать решение <i class="ph ph-arrow-right" aria-hidden="true"></i></button>
       </article>
 
       <article class="pack pack--featured reveal" style="--d:80ms">
@@ -357,7 +357,7 @@
           <li>Работа по зонам</li>
           <li>Поэтапная сдача</li>
         </ul>
-        <a class="btn" href="#estimate">Выбрать решение <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        <button class="btn" type="button" data-modal-open="package" data-package="Коммерческий стандарт">Выбрать решение <i class="ph ph-arrow-right" aria-hidden="true"></i></button>
       </article>
 
       <article class="pack reveal" style="--d:160ms">
@@ -371,7 +371,7 @@
           <li>Сменный график</li>
           <li>Ежедневный отчёт о выполненном объёме</li>
         </ul>
-        <a class="btn btn--outline" href="#estimate">Выбрать решение <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        <button class="btn btn--outline" type="button" data-modal-open="package" data-package="Большие площади">Выбрать решение <i class="ph ph-arrow-right" aria-hidden="true"></i></button>
       </article>
 
     </div>
@@ -1339,6 +1339,38 @@
       </a>
     </div>
     <p class="fine" id="tech-note" style="margin-top:16px" hidden>Заявка сформирована. Отправьте её в мессенджере - и мы перезвоним для согласования выезда.</p>
+
+    <a class="modal__tel" href="tel:+74994449379">Или позвоните:<b>+7 (499) 444-93-79</b></a>
+  </div>
+</dialog>
+
+<dialog class="modal" id="package" aria-labelledby="package-title">
+  <button class="modal__close" type="button" data-modal-close aria-label="Закрыть"><i class="ph ph-x" aria-hidden="true"></i></button>
+  <div class="modal__in">
+    <h3 id="package-title">Выбрать <em class="accent">решение</em></h3>
+    <p>Оставьте имя и телефон - согласуем состав работ и стоимость по выбранному решению.</p>
+
+    <form class="tech-form" id="package-form">
+      <div class="field field--full">
+        <label for="p-name">Имя</label>
+        <input id="p-name" name="Имя" type="text" autocomplete="name" placeholder="Как к вам обращаться" required>
+      </div>
+      <div class="field field--full">
+        <label for="p-phone">Телефон</label>
+        <input id="p-phone" name="Телефон" type="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required>
+      </div>
+      <button class="btn btn--lg" type="submit" style="margin-top:4px">Отправить заявку <i class="ph ph-arrow-right" aria-hidden="true"></i></button>
+    </form>
+
+    <div class="modal__btns" id="package-out" hidden>
+      <a class="btn modal__wa" id="package-wa" href="#" target="_blank" rel="noopener">
+        Отправить в WhatsApp <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+      </a>
+      <a class="btn modal__tg" href="https://t.me/PavelBestPaints" target="_blank" rel="noopener">
+        Написать в Telegram <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+      </a>
+    </div>
+    <p class="fine" id="package-note" style="margin-top:16px" hidden>Заявка сформирована. Отправьте её в мессенджере - и мы перезвоним для согласования.</p>
 
     <a class="modal__tel" href="tel:+74994449379">Или позвоните:<b>+7 (499) 444-93-79</b></a>
   </div>
