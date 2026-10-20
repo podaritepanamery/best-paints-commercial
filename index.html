@@ -558,6 +558,10 @@
       </div>
     </div>
 
+    <div class="biz__cta reveal">
+      <button class="btn btn--lg" type="button" data-modal-open="business-lead">Обсудить ваш объект <i class="ph ph-arrow-right" aria-hidden="true"></i></button>
+    </div>
+
   </div>
 </section>
 
@@ -1367,6 +1371,38 @@
       </a>
     </div>
     <p class="fine" id="package-note" style="margin-top:16px" hidden>Заявка сформирована. Отправьте её в мессенджере - и мы перезвоним для согласования.</p>
+
+    <a class="modal__tel" href="tel:+74994449379">Или позвоните:<b>+7 (499) 444-93-79</b></a>
+  </div>
+</dialog>
+
+<dialog class="modal" id="business-lead" aria-labelledby="business-title">
+  <button class="modal__close" type="button" data-modal-close aria-label="Закрыть"><i class="ph ph-x" aria-hidden="true"></i></button>
+  <div class="modal__in">
+    <h3 id="business-title">Обсудить <em class="accent">ваш объект</em></h3>
+    <p>Оставьте имя и телефон - согласуем сроки, график и стоимость под ваш бизнес.</p>
+
+    <form class="tech-form" id="business-form">
+      <div class="field field--full">
+        <label for="b-name">Имя</label>
+        <input id="b-name" name="Имя" type="text" autocomplete="name" placeholder="Как к вам обращаться" required>
+      </div>
+      <div class="field field--full">
+        <label for="b-phone">Телефон</label>
+        <input id="b-phone" name="Телефон" type="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required>
+      </div>
+      <button class="btn btn--lg" type="submit" style="margin-top:4px">Отправить заявку <i class="ph ph-arrow-right" aria-hidden="true"></i></button>
+    </form>
+
+    <div class="modal__btns" id="business-out" hidden>
+      <a class="btn modal__wa" id="business-wa" href="#" target="_blank" rel="noopener">
+        Отправить в WhatsApp <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+      </a>
+      <a class="btn modal__tg" href="https://t.me/PavelBestPaints" target="_blank" rel="noopener">
+        Написать в Telegram <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+      </a>
+    </div>
+    <p class="fine" id="business-note" style="margin-top:16px" hidden>Заявка сформирована. Отправьте её в мессенджере - и мы перезвоним для согласования.</p>
 
     <a class="modal__tel" href="tel:+74994449379">Или позвоните:<b>+7 (499) 444-93-79</b></a>
   </div>

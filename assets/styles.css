@@ -639,6 +639,7 @@ em.accent,.accent{
 .biz__item p{ margin-top:10px; font-size:16px; line-height:1.45; color:var(--ink-2); }
 @media (max-width:900px){ .biz{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (max-width:560px){ .biz{ grid-template-columns:1fr; } }
+.biz__cta{ margin-top:clamp(40px,5vw,60px); display:flex; justify-content:center; }
 
 /* ==========================================================================
    16. НАШИ РАБОТЫ  (панель-кейс LP: слева состав и цифры, справа фото БЫЛО/СТАЛО)

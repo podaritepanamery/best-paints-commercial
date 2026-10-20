@@ -168,6 +168,30 @@
     });
   }
 
+  /* ---------- 5c. форма "обсудить ваш объект" (блок "Для бизнеса"): ------
+     имя + телефон, та же механика, что и у формы технолога. */
+  var businessForm = document.getElementById('business-form');
+
+  if (businessForm) {
+    var businessOut = document.getElementById('business-out');
+    var businessNote = document.getElementById('business-note');
+    var businessWa = document.getElementById('business-wa');
+
+    businessForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (typeof businessForm.reportValidity === 'function' && !businessForm.reportValidity()) return;
+
+      var name = businessForm.elements['Имя'].value.trim();
+      var phone = businessForm.elements['Телефон'].value.trim();
+      var text = 'Здравствуйте! Хочу обсудить покраску моего объекта.\nИмя: ' + name + '\nТелефон: ' + phone;
+
+      if (businessWa) businessWa.href = 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(text);
+      businessForm.hidden = true;
+      if (businessOut) businessOut.hidden = false;
+      if (businessNote) businessNote.hidden = false;
+    });
+  }
+
   /* ---------- 6. FAQ: открыт только один пункт -------------------------- */
   var faqItems = document.querySelectorAll('.faq details');
   faqItems.forEach(function (d) {
