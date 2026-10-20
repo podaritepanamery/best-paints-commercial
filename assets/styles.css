@@ -337,9 +337,12 @@ em.accent,.accent{
 .hdr__msg a:hover{ border-color:var(--green); background:var(--green-tint); }
 
 .hdr__quick{ display:flex; align-items:center; gap:26px; margin-left:14px; }
-.hdr__quick a{ display:inline-flex; align-items:center; gap:9px; font-size:16px; color:var(--ink); transition:color .3s var(--ease); }
-.hdr__quick a span{ border-bottom:1px solid rgba(27,27,27,.35); padding-bottom:1px; transition:border-color .3s var(--ease); }
-.hdr__quick a i{ font-size:21px; color:var(--green); }
+.hdr__quick a,
+.hdr__quick .hdr__badge{ display:inline-flex; align-items:center; gap:9px; font-size:16px; color:var(--ink); transition:color .3s var(--ease); }
+.hdr__quick a span,
+.hdr__quick .hdr__badge span{ border-bottom:1px solid rgba(27,27,27,.35); padding-bottom:1px; transition:border-color .3s var(--ease); }
+.hdr__quick a i,
+.hdr__quick .hdr__badge i{ font-size:21px; color:var(--green); }
 .hdr__quick a:hover{ color:var(--green-700); }
 .hdr__quick a:hover span{ border-bottom-color:var(--green); }
 
