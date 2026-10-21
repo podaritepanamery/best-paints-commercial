@@ -1073,6 +1073,15 @@ dialog.modal::backdrop{ background:rgba(27,27,27,.5); }
 .modal__max:hover{ background:#3a37e0; border-color:#3a37e0; color:#fff; }
 .modal__tel{ margin-top:22px; display:block; text-align:center; font-size:15px; color:var(--ink-2); }
 .modal__tel b{ display:block; margin-top:4px; font-size:23px; color:var(--ink); }
+/* кликабельная строка почты: копирует адрес в буфер, вместо mailto-ссылки -
+   она открывала бы почтовый клиент, а здесь достаточно скопировать адрес */
+.modal__email{
+  margin-top:14px; display:block; width:100%;
+  background:none; border:0; padding:0; font:inherit; cursor:pointer;
+  text-align:center; font-size:14px; color:var(--ink-2);
+}
+.modal__email b{ display:block; margin-top:4px; font-size:17px; color:var(--ink); transition:color .3s var(--ease); }
+.modal__email:hover b{ color:var(--green-700); }
 
 /* ---------- 25. ПОЯВЛЕНИЕ ------------------------------------------------ */
 @media (prefers-reduced-motion: no-preference){

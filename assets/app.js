@@ -9,6 +9,20 @@
   var reduced  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var WA_PHONE = '79263485565'; // общий номер WhatsApp - бриф-форма и форма вызова технолога
 
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {}, function () {});
+      return;
+    }
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;opacity:0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (err) {}
+    document.body.removeChild(ta);
+  }
+
   /* ---------- 1. высота шапки в CSS-переменную ------------------------- */
   var hdr = document.getElementById('hdr');
 
@@ -116,6 +130,21 @@
       if (outside) modal.close();
     });
   });
+
+  /* ---------- 5d. строка почты в модалке звонка: клик копирует адрес ---- */
+  var emailCopyBtn = document.getElementById('callback-email');
+
+  if (emailCopyBtn) {
+    var emailLabel = emailCopyBtn.querySelector('span');
+    var emailLabelText = emailLabel ? emailLabel.textContent : '';
+
+    emailCopyBtn.addEventListener('click', function () {
+      copyText(emailCopyBtn.getAttribute('data-copy') || '');
+      if (!emailLabel) return;
+      emailLabel.textContent = 'Скопировано!';
+      setTimeout(function () { emailLabel.textContent = emailLabelText; }, 1800);
+    });
+  }
 
   /* ---------- 5a. форма "вызвать технолога": имя + телефон --------------
      Два обязательных поля. По сабмиту собираем текст и подставляем его
@@ -359,20 +388,6 @@
 
       lines.push('', 'Отправлено с сайта Best Paints');
       return lines.join('\n');
-    }
-
-    function copyText(text) {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(function () {}, function () {});
-        return;
-      }
-      var ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.cssText = 'position:fixed;opacity:0';
-      document.body.appendChild(ta);
-      ta.select();
-      try { document.execCommand('copy'); } catch (err) {}
-      document.body.removeChild(ta);
     }
 
     function flashCopied(btn) {
