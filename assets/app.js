@@ -333,15 +333,15 @@
     }, { passive: true });
   }
 
-  /* ---------- 9. бриф: сборка текста, копия, скачивание, мессенджеры ---- */
+  /* ---------- 9. бриф: сборка текста и отправка в Telegram / MAX ---------
+     Ни Telegram (t.me), ни MAX не подставляют готовый текст в чат по
+     ссылке - поэтому бриф копируется в буфер обмена, а чат открывается
+     рядом: пользователю остаётся только вставить (Cmd/Ctrl+V). */
   var form = document.getElementById('brief-form');
 
   if (form) {
-    var out      = document.getElementById('brief-out');
-    var pre      = document.getElementById('brief-text');
-    var waLink   = document.getElementById('brief-wa');
-    var copyBtn  = document.getElementById('brief-copy');
-    var dlBtn    = document.getElementById('brief-dl');
+    var sendTgBtn  = document.getElementById('brief-send-tg');
+    var sendMaxBtn = document.getElementById('brief-send-max');
 
     function buildBrief() {
       var lines = ['Запрос на смету. Best Paints', ''];
@@ -361,48 +361,40 @@
       return lines.join('\n');
     }
 
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var text = buildBrief();
-      pre.textContent = text;
-      out.classList.add('is-visible');
-      if (waLink) waLink.href = 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(text);
-      out.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'nearest' });
-    });
-
-    if (copyBtn) {
-      copyBtn.addEventListener('click', function () {
-        var text = pre.textContent;
-        var done = function () {
-          var label = copyBtn.textContent;
-          copyBtn.textContent = 'Скопировано';
-          setTimeout(function () { copyBtn.textContent = label; }, 1800);
-        };
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).then(done, function () {});
-        } else {
-          var ta = document.createElement('textarea');
-          ta.value = text;
-          ta.style.cssText = 'position:fixed;opacity:0';
-          document.body.appendChild(ta);
-          ta.select();
-          try { document.execCommand('copy'); done(); } catch (err) {}
-          document.body.removeChild(ta);
-        }
-      });
+    function copyText(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {}, function () {});
+        return;
+      }
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;opacity:0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (err) {}
+      document.body.removeChild(ta);
     }
 
-    if (dlBtn) {
-      dlBtn.addEventListener('click', function () {
-        var blob = new Blob([pre.textContent], { type: 'text/plain;charset=utf-8' });
-        var url  = URL.createObjectURL(blob);
-        var a    = document.createElement('a');
-        a.href = url;
-        a.download = 'best-paints-brief.txt';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    function flashCopied(btn) {
+      var label = btn.innerHTML;
+      btn.innerHTML = 'Бриф скопирован, вставьте в чат (Cmd/Ctrl+V)';
+      setTimeout(function () { btn.innerHTML = label; }, 2500);
+    }
+
+    function sendBrief(btn, url) {
+      copyText(buildBrief());
+      window.open(url, '_blank', 'noopener');
+      flashCopied(btn);
+    }
+
+    if (sendTgBtn) {
+      sendTgBtn.addEventListener('click', function () {
+        sendBrief(sendTgBtn, 'https://t.me/PavelBestPaints');
+      });
+    }
+    if (sendMaxBtn) {
+      sendMaxBtn.addEventListener('click', function () {
+        sendBrief(sendMaxBtn, 'https://web.max.ru/317177205');
       });
     }
   }

@@ -1064,8 +1064,8 @@
       <span class="eyebrow">06 / Ваш объект</span>
       <h2 class="h2 dashed">Начнём <em class="accent">с понятного задания</em></h2>
       <p class="body">
-        Выберите параметры помещения. Получившийся бриф можно скачать, скопировать
-        или сразу отправить нам в мессенджер вместе с фотографиями или планом.
+        Выберите параметры помещения и отправьте бриф нам в Telegram или MAX -
+        вместе с ним можно сразу прислать фотографии или план.
       </p>
     </div>
 
@@ -1144,22 +1144,12 @@
         </div>
 
         <div class="brief__actions">
-          <button class="btn" type="submit">Сформировать бриф <i class="ph ph-arrow-right" aria-hidden="true"></i></button>
-        </div>
-
-        <div class="brief__out" id="brief-out" role="status" aria-live="polite">
-          <h4>Ваш бриф готов</h4>
-          <pre id="brief-text"></pre>
-          <div class="brief__actions">
-            <a class="btn btn--light" id="brief-wa" href="#" target="_blank" rel="noopener">
-              <i class="ph ph-whatsapp-logo" aria-hidden="true"></i> Отправить в WhatsApp
-            </a>
-            <a class="btn btn--light" id="brief-tg" href="https://t.me/PavelBestPaints" target="_blank" rel="noopener">
-              <i class="ph ph-telegram-logo" aria-hidden="true"></i> Написать в Telegram
-            </a>
-            <button class="btn btn--outline" type="button" id="brief-copy">Скопировать</button>
-            <button class="btn btn--outline" type="button" id="brief-dl">Скачать .txt</button>
-          </div>
+          <button class="btn" type="button" id="brief-send-tg">
+            <i class="ph ph-telegram-logo" aria-hidden="true"></i> Отправить бриф в Telegram
+          </button>
+          <button class="btn modal__max" type="button" id="brief-send-max">
+            Отправить бриф в MAX <i class="ph ph-arrow-right" aria-hidden="true"></i>
+          </button>
         </div>
       </form>
 

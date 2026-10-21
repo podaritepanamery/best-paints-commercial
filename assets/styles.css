@@ -912,18 +912,6 @@ em.accent,.accent{
   outline:none; border-color:var(--green); box-shadow:0 0 0 3px rgba(68,118,49,.14);
 }
 .brief__actions{ display:flex; flex-wrap:wrap; gap:12px; margin-top:28px; }
-.brief__out{
-  display:none; margin-top:26px; padding:22px 24px;
-  border-radius:var(--r-card); background:var(--green-tint);
-  border:1px solid rgba(68,118,49,.2);
-}
-.brief__out.is-visible{ display:block; }
-.brief__out h4{ margin:0 0 12px; font-size:16px; font-weight:700; }
-.brief__out pre{
-  margin:0; font-family:ui-monospace,'SF Mono',Menlo,monospace;
-  font-size:13px; line-height:1.6; white-space:pre-wrap; word-break:break-word; color:var(--ink);
-}
-.brief__out .brief__actions{ margin-top:20px; }
 @media (max-width:900px){ .brief{ grid-template-columns:1fr; } }
 @media (max-width:560px){ .fields{ grid-template-columns:1fr; } }
 
