@@ -23,23 +23,24 @@
     document.body.removeChild(ta);
   }
 
-  /* всплывающая плашка-уведомление снизу экрана (например, "бриф скопирован") */
-  var toastEl, toastTimer;
+  /* всплывающая плашка-уведомление по центру экрана (например, "бриф
+     скопирован") - с подложкой, гасит страницу за собой */
+  var toastLayer, toastTimer;
 
-  function showToast(text) {
-    if (!toastEl) {
-      toastEl = document.createElement('div');
-      toastEl.className = 'toast';
-      toastEl.innerHTML = '<i class="ph ph-check-circle" aria-hidden="true"></i><span></span>';
-      document.body.appendChild(toastEl);
+  function showToast(text, duration) {
+    if (!toastLayer) {
+      toastLayer = document.createElement('div');
+      toastLayer.className = 'toast-layer';
+      toastLayer.innerHTML = '<div class="toast"><i class="ph ph-check-circle" aria-hidden="true"></i><span></span></div>';
+      document.body.appendChild(toastLayer);
     }
-    toastEl.querySelector('span').textContent = text;
+    toastLayer.querySelector('span').textContent = text;
     clearTimeout(toastTimer);
     // reflow, чтобы повторный вызов подряд снова проигрывал анимацию появления
-    toastEl.classList.remove('is-visible');
-    void toastEl.offsetWidth;
-    toastEl.classList.add('is-visible');
-    toastTimer = setTimeout(function () { toastEl.classList.remove('is-visible'); }, 3000);
+    toastLayer.classList.remove('is-visible');
+    void toastLayer.offsetWidth;
+    toastLayer.classList.add('is-visible');
+    toastTimer = setTimeout(function () { toastLayer.classList.remove('is-visible'); }, duration || 3000);
   }
 
   /* ---------- 1. высота шапки в CSS-переменную ------------------------- */
@@ -420,8 +421,13 @@
     if (sendMaxBtn) {
       sendMaxBtn.addEventListener('click', function () {
         copyText(buildBrief());
-        showToast('Бриф скопирован. Отправьте его нам');
-        window.open('https://web.max.ru/317177205', '_blank', 'noopener');
+        showToast('Бриф скопирован. Отправьте его нам', 2200);
+        // переход с задержкой, чтобы плашку успели прочитать - текущая
+        // вкладка, не window.open: с задержкой он попадает под блокировку
+        // всплывающих окон в части браузеров
+        setTimeout(function () {
+          window.location.href = 'https://web.max.ru/317177205';
+        }, 2200);
       });
     }
   }
