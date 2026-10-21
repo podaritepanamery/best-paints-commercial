@@ -956,8 +956,10 @@ em.accent,.accent{
 @media (max-width:900px){ .reviews{ grid-template-columns:1fr; } }
 
 /* ==========================================================================
-   22a. СЕРТИФИКАТЫ  (документы сканами - без кропа, целиком)
+   22a. СЕРТИФИКАТЫ  (документы сканами - без кропа, целиком; блок внутри
+   #contacts, между финальной карточкой и картой - своей секции не образует)
    ========================================================================== */
+.certs-block{ margin-top:clamp(40px,5vw,64px); }
 .certs{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(18px,2vw,26px); }
 .cert{
   display:block; padding:14px 14px 20px;
@@ -965,7 +967,6 @@ em.accent,.accent{
   box-shadow:var(--shadow-sm);
   transition:transform .45s var(--ease), box-shadow .45s var(--ease);
 }
-.section--warm .cert{ box-shadow:none; }
 .cert:hover{ transform:translateY(-3px); box-shadow:var(--shadow-md); }
 .cert img{
   display:block; width:100%; height:auto;
