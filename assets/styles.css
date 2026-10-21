@@ -956,6 +956,30 @@ em.accent,.accent{
 @media (max-width:900px){ .reviews{ grid-template-columns:1fr; } }
 
 /* ==========================================================================
+   22a. СЕРТИФИКАТЫ  (документы сканами - без кропа, целиком)
+   ========================================================================== */
+.certs{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(18px,2vw,26px); }
+.cert{
+  display:block; padding:14px 14px 20px;
+  background:#fff; border-radius:var(--r-card);
+  box-shadow:var(--shadow-sm);
+  transition:transform .45s var(--ease), box-shadow .45s var(--ease);
+}
+.section--warm .cert{ box-shadow:none; }
+.cert:hover{ transform:translateY(-3px); box-shadow:var(--shadow-md); }
+.cert img{
+  display:block; width:100%; height:auto;
+  border-radius:var(--r-img); border:1px solid var(--line-soft);
+}
+.cert__cap{
+  margin-top:14px; display:flex; align-items:center; justify-content:space-between; gap:10px;
+  font-size:15px; font-weight:600; color:var(--ink);
+}
+.cert__cap i{ flex:none; font-size:17px; color:var(--green); transition:transform .35s var(--ease); }
+.cert:hover .cert__cap i{ transform:translate(3px,-3px); }
+@media (max-width:900px){ .certs{ grid-template-columns:1fr; max-width:420px; margin-inline:auto; } }
+
+/* ==========================================================================
    23. ФИНАЛ + ПОДВАЛ
    ========================================================================== */
 .final{
