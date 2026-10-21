@@ -363,9 +363,11 @@
   }
 
   /* ---------- 9. бриф: сборка текста и отправка в Telegram / MAX ---------
-     Ни Telegram (t.me), ни MAX не подставляют готовый текст в чат по
-     ссылке - поэтому бриф копируется в буфер обмена, а чат открывается
-     рядом: пользователю остаётся только вставить (Cmd/Ctrl+V). */
+     Telegram (t.me/<user>?text=...) официально подставляет текст прямо
+     в поле ввода открывшегося чата (core.telegram.org/api/links) -
+     отправить остаётся одним нажатием. У MAX такого параметра нет,
+     поэтому для него бриф копируется в буфер обмена, а чат открывается
+     рядом: вставить - Cmd/Ctrl+V. */
   var form = document.getElementById('brief-form');
 
   if (form) {
@@ -390,26 +392,23 @@
       return lines.join('\n');
     }
 
-    function flashCopied(btn) {
+    function flashLabel(btn, text) {
       var label = btn.innerHTML;
-      btn.innerHTML = 'Бриф скопирован, вставьте в чат (Cmd/Ctrl+V)';
+      btn.innerHTML = text;
       setTimeout(function () { btn.innerHTML = label; }, 2500);
-    }
-
-    function sendBrief(btn, url) {
-      copyText(buildBrief());
-      window.open(url, '_blank', 'noopener');
-      flashCopied(btn);
     }
 
     if (sendTgBtn) {
       sendTgBtn.addEventListener('click', function () {
-        sendBrief(sendTgBtn, 'https://t.me/PavelBestPaints');
+        var url = 'https://t.me/PavelBestPaints?text=' + encodeURIComponent(buildBrief());
+        window.open(url, '_blank', 'noopener');
       });
     }
     if (sendMaxBtn) {
       sendMaxBtn.addEventListener('click', function () {
-        sendBrief(sendMaxBtn, 'https://web.max.ru/317177205');
+        copyText(buildBrief());
+        window.open('https://web.max.ru/317177205', '_blank', 'noopener');
+        flashLabel(sendMaxBtn, 'Бриф скопирован, вставьте в чат (Cmd/Ctrl+V)');
       });
     }
   }
