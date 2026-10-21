@@ -23,6 +23,25 @@
     document.body.removeChild(ta);
   }
 
+  /* всплывающая плашка-уведомление снизу экрана (например, "бриф скопирован") */
+  var toastEl, toastTimer;
+
+  function showToast(text) {
+    if (!toastEl) {
+      toastEl = document.createElement('div');
+      toastEl.className = 'toast';
+      toastEl.innerHTML = '<i class="ph ph-check-circle" aria-hidden="true"></i><span></span>';
+      document.body.appendChild(toastEl);
+    }
+    toastEl.querySelector('span').textContent = text;
+    clearTimeout(toastTimer);
+    // reflow, чтобы повторный вызов подряд снова проигрывал анимацию появления
+    toastEl.classList.remove('is-visible');
+    void toastEl.offsetWidth;
+    toastEl.classList.add('is-visible');
+    toastTimer = setTimeout(function () { toastEl.classList.remove('is-visible'); }, 3000);
+  }
+
   /* ---------- 1. высота шапки в CSS-переменную ------------------------- */
   var hdr = document.getElementById('hdr');
 
@@ -392,12 +411,6 @@
       return lines.join('\n');
     }
 
-    function flashLabel(btn, text) {
-      var label = btn.innerHTML;
-      btn.innerHTML = text;
-      setTimeout(function () { btn.innerHTML = label; }, 2500);
-    }
-
     if (sendTgBtn) {
       sendTgBtn.addEventListener('click', function () {
         var url = 'https://t.me/PavelBestPaints?text=' + encodeURIComponent(buildBrief());
@@ -407,8 +420,8 @@
     if (sendMaxBtn) {
       sendMaxBtn.addEventListener('click', function () {
         copyText(buildBrief());
+        showToast('Бриф скопирован. Отправьте его нам');
         window.open('https://web.max.ru/317177205', '_blank', 'noopener');
-        flashLabel(sendMaxBtn, 'Бриф скопирован, вставьте в чат (Cmd/Ctrl+V)');
       });
     }
   }

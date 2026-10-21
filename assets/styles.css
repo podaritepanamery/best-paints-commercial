@@ -1042,6 +1042,20 @@ em.accent,.accent{
 }
 @keyframes fabPulse{ 0%{ opacity:.5; transform:scale(1); } 70%,100%{ opacity:0; transform:scale(1.5); } }
 
+/* всплывающая плашка-уведомление (например, "бриф скопирован") */
+.toast{
+  position:fixed; left:50%; bottom:28px; z-index:90;
+  display:flex; align-items:center; gap:10px;
+  padding:14px 22px; border-radius:var(--r-pill);
+  background:var(--ink); color:#fff; font-size:15px; font-weight:600;
+  box-shadow:var(--shadow-lg);
+  transform:translate(-50%, 16px); opacity:0; pointer-events:none;
+  transition:transform .35s var(--ease), opacity .35s var(--ease);
+}
+.toast i{ font-size:19px; color:var(--green-tint); flex:none; }
+.toast.is-visible{ transform:translate(-50%, 0); opacity:1; }
+@media (max-width:560px){ .toast{ left:16px; right:16px; bottom:18px; transform:translateY(16px); } .toast.is-visible{ transform:translateY(0); } }
+
 dialog.modal{
   width:min(480px, calc(100vw - 32px));
   padding:0; border:0; border-radius:var(--r-card);
