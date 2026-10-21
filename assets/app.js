@@ -426,7 +426,7 @@
         // вкладка, не window.open: с задержкой он попадает под блокировку
         // всплывающих окон в части браузеров
         setTimeout(function () {
-          window.location.href = 'https://web.max.ru/317177205';
+          window.location.href = 'https://max.ru/u/f9LHodD0cOJbqw_KXwoUQr9tVkbRtl4D8BnzQSeBSvZsP31yvSotc_RxgAs';
         }, 2200);
       });
     }
