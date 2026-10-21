@@ -1081,6 +1081,8 @@ dialog.modal::backdrop{ background:rgba(27,27,27,.5); }
 .modal__wa:hover{ background:#1fbe5a; border-color:#1fbe5a; color:#06331a; }
 .modal__tg{ background:#2AABEE; border-color:#2AABEE; color:#042a3d; }
 .modal__tg:hover{ background:#1f98d6; border-color:#1f98d6; color:#042a3d; }
+.modal__max{ background:#4B48FD; border-color:#4B48FD; color:#fff; }
+.modal__max:hover{ background:#3a37e0; border-color:#3a37e0; color:#fff; }
 .modal__tel{ margin-top:22px; display:block; text-align:center; font-size:15px; color:var(--ink-2); }
 .modal__tel b{ display:block; margin-top:4px; font-size:23px; color:var(--ink); }
 
