@@ -584,7 +584,9 @@ em.accent,.accent{
 .pack__num{ font-size:13px; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:var(--green); }
 .pack h3{ margin-top:12px; font-size:26px; line-height:1.15; font-weight:700; }
 .pack__for{ margin-top:12px; font-size:16px; color:var(--ink-2); }
-.pack__price{ margin-top:18px; display:flex; align-items:center; font-size:16px; color:var(--ink-2); }
+/* padding-left как у текста в .dots (19px после буллета) - цена начинается
+   по той же вертикали, что и текст списка ниже */
+.pack__price{ margin-top:18px; padding-left:19px; display:flex; align-items:center; font-size:16px; color:var(--ink-2); }
 .pack__price-pre{ margin-right:10px; }
 .pack__price b{ font-size:28px; font-weight:700; line-height:1; color:var(--ink); }
 .pack__price-unit{ margin-left:3px; font-size:28px; font-weight:700; line-height:1; color:var(--ink); }
