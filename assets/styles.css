@@ -509,18 +509,20 @@ em.accent,.accent{
 .rating__val span{ font-size:14px; color:var(--ink-2); }
 .rating__stars{ display:block; color:#ffb020; font-size:13px; letter-spacing:1px; margin-top:2px; }
 
-@media (max-width:560px){
-  .ratings{ right:10px; top:10px; gap:8px; }
-  .rating{ padding:9px 12px; gap:8px; }
-  .rating__mark{ width:28px; height:28px; font-size:15px; }
-  .rating__val b{ font-size:16px; }
-  .rating__val span{ display:none; }
-}
-
 @media (max-width:980px){
   .hero__grid{ grid-template-columns:1fr; }
   .hero__media{ order:-1; }
   .ratings{ right:12px; top:12px; }
+}
+
+@media (max-width:560px){
+  .ratings{ right:10px; top:-14px; gap:6px; }
+  .rating{ padding:7px 10px; gap:7px; }
+  .rating__mark{ width:22px; height:22px; font-size:13px; }
+  .rating__mark--gis i{ font-size:6px; }
+  .rating__val b{ font-size:14px; }
+  .rating__val span{ display:none; }
+  .rating__stars{ font-size:11px; margin-top:1px; }
 }
 
 /* ==========================================================================
