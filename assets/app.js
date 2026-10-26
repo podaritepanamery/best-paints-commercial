@@ -7,7 +7,7 @@
   'use strict';
 
   var reduced  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var WA_PHONE = '79263485565'; // общий номер WhatsApp - бриф-форма и форма вызова технолога
+  var WA_PHONE = '79362430591'; // общий номер WhatsApp - бриф-форма и форма вызова технолога
 
   function copyText(text) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -414,7 +414,7 @@
 
     if (sendTgBtn) {
       sendTgBtn.addEventListener('click', function () {
-        var url = 'https://t.me/PavelBestPaints?text=' + encodeURIComponent(buildBrief());
+        var url = 'https://t.me/+79362430591?text=' + encodeURIComponent(buildBrief());
         window.open(url, '_blank', 'noopener');
       });
     }
