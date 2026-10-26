@@ -336,6 +336,12 @@ em.accent,.accent{
 .hdr__msg a i{ font-size:20px; }
 .hdr__msg a:hover{ border-color:var(--green); background:var(--green-tint); }
 
+/* фирменные цвета, как у дефолтных иконок мессенджеров (в духе MAX) */
+.hdr__msg a.hdr__msg--wa{ border-color:#25d366; background:#25d366; color:#fff; }
+.hdr__msg a.hdr__msg--wa:hover{ border-color:#20bd5a; background:#20bd5a; }
+.hdr__msg a.hdr__msg--tg{ border-color:#29a9eb; background:linear-gradient(135deg,#37bbf3,#1e96d6); color:#fff; }
+.hdr__msg a.hdr__msg--tg:hover{ filter:brightness(1.05); }
+
 .hdr__quick{ display:flex; align-items:center; gap:26px; margin-left:14px; }
 .hdr__quick a{ display:inline-flex; align-items:center; gap:9px; font-size:16px; color:var(--ink); transition:color .3s var(--ease); }
 .hdr__quick a span{ border-bottom:1px solid rgba(27,27,27,.35); padding-bottom:1px; transition:border-color .3s var(--ease); }
