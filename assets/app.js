@@ -383,11 +383,12 @@
   }
 
   /* ---------- 9. бриф: сборка текста и отправка в Telegram / MAX ---------
-     Telegram (t.me/<user>?text=...) официально подставляет текст прямо
-     в поле ввода открывшегося чата (core.telegram.org/api/links) -
-     отправить остаётся одним нажатием. У MAX такого параметра нет,
-     поэтому для него бриф копируется в буфер обмена, а чат открывается
-     рядом: вставить - Cmd/Ctrl+V. */
+     Параметр ?text= (core.telegram.org/api/links) Telegram подставляет
+     в поле ввода только для ссылок вида t.me/<username> - для ссылки
+     по номеру телефона (t.me/+<phone>) он не работает, текст теряется.
+     Номер меняется чаще username, поэтому для Telegram и MAX бриф
+     одинаково копируется в буфер обмена, а чат открывается рядом:
+     вставить - Cmd/Ctrl+V. */
   var form = document.getElementById('brief-form');
 
   if (form) {
@@ -414,8 +415,11 @@
 
     if (sendTgBtn) {
       sendTgBtn.addEventListener('click', function () {
-        var url = 'https://t.me/+79362430591?text=' + encodeURIComponent(buildBrief());
-        window.open(url, '_blank', 'noopener');
+        copyText(buildBrief());
+        showToast('Бриф скопирован. Отправьте его нам', 2200);
+        setTimeout(function () {
+          window.location.href = 'https://t.me/+79362430591';
+        }, 2200);
       });
     }
     if (sendMaxBtn) {
