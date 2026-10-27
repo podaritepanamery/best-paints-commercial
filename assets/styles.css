@@ -550,6 +550,11 @@ em.accent,.accent{
   .rating__stars{ font-size:11px; margin-top:1px; }
 }
 
+/* модификатор: бейджи у левого края фото (используется точечно, не на главной) */
+.ratings.ratings--left{ right:auto; left:16px; }
+@media (max-width:980px){ .ratings.ratings--left{ right:auto; left:12px; } }
+@media (max-width:560px){ .ratings.ratings--left{ right:auto; left:10px; } }
+
 /* ==========================================================================
    10. ДВУХКОЛОНОЧНЫЙ ВВОДНЫЙ БЛОК
    ========================================================================== */
