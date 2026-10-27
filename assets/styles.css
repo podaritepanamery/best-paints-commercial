@@ -479,8 +479,8 @@ em.accent,.accent{
 .hero__strong{ margin-top:10px; font-size:19px; font-weight:600; line-height:1.4; }
 
 .hero__price{ display:flex; align-items:baseline; gap:8px; margin-top:24px; }
-.hero__price b{ font-size:40px; font-weight:700; color:var(--green-700); line-height:1; }
-.hero__price span{ font-size:16px; color:var(--ink-2); }
+.hero__price b, .hero__price .hero__price-unit{ font-size:40px; font-weight:700; color:var(--green-700); line-height:1; }
+.hero__price-pre{ font-size:16px; color:var(--ink-2); }
 
 .hero__checks{ margin-top:26px; }
 .hero__checks li{ display:flex; align-items:flex-start; gap:12px; font-size:17px; line-height:1.4; }
