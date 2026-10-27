@@ -475,6 +475,22 @@ em.accent,.accent{
 .hero__note{ margin-top:24px; font-size:16px; line-height:1.45; color:var(--ink-2); max-width:50ch; }
 .hero__note b{ color:var(--ink); font-weight:600; }
 
+.hero__lead{ margin-top:18px; font-size:19px; line-height:1.4; color:var(--ink-2); }
+.hero__strong{ margin-top:10px; font-size:19px; font-weight:600; line-height:1.4; }
+
+.hero__price{ display:flex; align-items:baseline; gap:8px; margin-top:24px; }
+.hero__price b{ font-size:40px; font-weight:700; color:var(--green-700); line-height:1; }
+.hero__price span{ font-size:16px; color:var(--ink-2); }
+
+.hero__checks{ margin-top:26px; }
+.hero__checks li{ display:flex; align-items:flex-start; gap:12px; font-size:17px; line-height:1.4; }
+.hero__checks li + li{ margin-top:12px; }
+.hero__checks .check-badge{
+  display:flex; align-items:center; justify-content:center; flex:none;
+  width:22px; height:22px; margin-top:2px; border-radius:50%;
+  background:var(--green); color:#fff; font-size:13px;
+}
+
 .hero__media{ position:relative; }
 .hero__media img{
   width:100%; aspect-ratio:4/3.2; object-fit:cover;
