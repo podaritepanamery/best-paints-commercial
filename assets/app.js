@@ -140,6 +140,36 @@
     }
   });
 
+  /* ---------- 5e. переход по ссылкам-якорям (#estimate и т.п.) ----------
+     На Flexbe свой скролл-движок перехватывает колесо мыши и откатывает
+     обычный переход по #id обратно - страница просто не прокручивается.
+     Скроллим сами через requestAnimationFrame: это переживает движок
+     Flexbe и работает так же на Tilda и на основном сайте. */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var id = a.getAttribute('href').slice(1);
+    if (!id) return;
+    var target = document.getElementById(id);
+    if (!target) return;
+
+    e.preventDefault();
+    var startY = window.scrollY;
+    var endY = target.getBoundingClientRect().top + window.scrollY;
+    var duration = reduced ? 0 : Math.min(1200, Math.max(350, Math.abs(endY - startY) * 0.6));
+    var startTime = null;
+
+    function step(ts) {
+      if (startTime === null) startTime = ts;
+      var t = duration === 0 ? 1 : Math.min((ts - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - t, 3);
+      window.scrollTo(0, startY + (endY - startY) * eased);
+      if (t < 1) requestAnimationFrame(step);
+      else if (history.pushState) history.pushState(null, '', '#' + id);
+    }
+    requestAnimationFrame(step);
+  });
+
   // клик по подложке закрывает окно
   modals.forEach(function (modal) {
     modal.addEventListener('click', function (e) {
@@ -238,6 +268,29 @@
       businessForm.hidden = true;
       if (businessOut) businessOut.hidden = false;
       if (businessNote) businessNote.hidden = false;
+    });
+  }
+
+  /* ---------- 5f. форма "заказать звонок": имя + телефон ---------------- */
+  var callbackForm = document.getElementById('callback-form');
+
+  if (callbackForm) {
+    var callbackOut = document.getElementById('callback-out');
+    var callbackNote = document.getElementById('callback-note');
+    var callbackWa = document.getElementById('callback-wa');
+
+    callbackForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (typeof callbackForm.reportValidity === 'function' && !callbackForm.reportValidity()) return;
+
+      var name = callbackForm.elements['Имя'].value.trim();
+      var phone = callbackForm.elements['Телефон'].value.trim();
+      var text = 'Здравствуйте! Прошу перезвонить мне.\nИмя: ' + name + '\nТелефон: ' + phone;
+
+      if (callbackWa) callbackWa.href = 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(text);
+      callbackForm.hidden = true;
+      if (callbackOut) callbackOut.hidden = false;
+      if (callbackNote) callbackNote.hidden = false;
     });
   }
 
