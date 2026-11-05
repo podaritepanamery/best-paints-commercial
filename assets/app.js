@@ -144,7 +144,10 @@
      На Flexbe свой скролл-движок перехватывает колесо мыши и откатывает
      обычный переход по #id обратно - страница просто не прокручивается.
      Скроллим сами через requestAnimationFrame: это переживает движок
-     Flexbe и работает так же на Tilda и на основном сайте. */
+     Flexbe и работает так же на Tilda и на основном сайте.
+     Мало доехать один раз - на больших дистанциях движок Flexbe ещё
+     какое-то время по инерции тянет страницу обратно, поэтому после
+     завершения анимации ещё ~40 кадров силой держим конечную позицию. */
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a[href^="#"]');
     if (!a) return;
@@ -156,16 +159,19 @@
     e.preventDefault();
     var startY = window.scrollY;
     var endY = target.getBoundingClientRect().top + window.scrollY;
-    var duration = reduced ? 0 : Math.min(1200, Math.max(350, Math.abs(endY - startY) * 0.6));
+    var duration = reduced ? 1 : Math.min(1200, Math.max(350, Math.abs(endY - startY) * 0.6));
     var startTime = null;
+    var lockFrames = 0;
 
     function step(ts) {
       if (startTime === null) startTime = ts;
-      var t = duration === 0 ? 1 : Math.min((ts - startTime) / duration, 1);
-      var eased = 1 - Math.pow(1 - t, 3);
+      var t = Math.min((ts - startTime) / duration, 1);
+      var eased = reduced ? 1 : 1 - Math.pow(1 - t, 3);
       window.scrollTo(0, startY + (endY - startY) * eased);
-      if (t < 1) requestAnimationFrame(step);
-      else if (history.pushState) history.pushState(null, '', '#' + id);
+      if (t < 1) { requestAnimationFrame(step); return; }
+      lockFrames++;
+      if (lockFrames < 40) { window.scrollTo(0, endY); requestAnimationFrame(step); return; }
+      if (history.pushState) history.pushState(null, '', '#' + id);
     }
     requestAnimationFrame(step);
   });
