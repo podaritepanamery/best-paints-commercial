@@ -9,6 +9,17 @@
   var reduced  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var WA_PHONE = '79362430591'; // общий номер WhatsApp - бриф-форма и форма вызова технолога
 
+  /* цель "order" в Яндекс.Метрике (счётчик 114048938) - фиксируем после
+     успешной отправки любой формы "имя + телефон": звонок, технолог,
+     пакет, бизнес. ym может быть ещё не загружен (блокировщики, медленная
+     сеть) или отсутствовать вовсе (например, на этом домене нет счётчика) -
+     поэтому вызываем только если функция реально существует. */
+  function trackOrderGoal() {
+    if (typeof window.ym === 'function') {
+      window.ym(114048938, 'reachGoal', 'order');
+    }
+  }
+
   function copyText(text) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(function () {}, function () {});
@@ -219,6 +230,7 @@
     techForm.addEventListener('submit', function (e) {
       e.preventDefault();
       if (typeof techForm.reportValidity === 'function' && !techForm.reportValidity()) return;
+      trackOrderGoal();
 
       var name = techForm.elements['Имя'].value.trim();
       var phone = techForm.elements['Телефон'].value.trim();
@@ -242,6 +254,7 @@
     packageForm.addEventListener('submit', function (e) {
       e.preventDefault();
       if (typeof packageForm.reportValidity === 'function' && !packageForm.reportValidity()) return;
+      trackOrderGoal();
 
       var name = packageForm.elements['Имя'].value.trim();
       var phone = packageForm.elements['Телефон'].value.trim();
@@ -267,6 +280,7 @@
     businessForm.addEventListener('submit', function (e) {
       e.preventDefault();
       if (typeof businessForm.reportValidity === 'function' && !businessForm.reportValidity()) return;
+      trackOrderGoal();
 
       var name = businessForm.elements['Имя'].value.trim();
       var phone = businessForm.elements['Телефон'].value.trim();
@@ -290,6 +304,7 @@
     callbackForm.addEventListener('submit', function (e) {
       e.preventDefault();
       if (typeof callbackForm.reportValidity === 'function' && !callbackForm.reportValidity()) return;
+      trackOrderGoal();
 
       var name = callbackForm.elements['Имя'].value.trim();
       var phone = callbackForm.elements['Телефон'].value.trim();
