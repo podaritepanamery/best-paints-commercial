@@ -233,17 +233,18 @@ em.accent,.accent{
 .btn--light{ background:#fff; border-color:var(--line); color:var(--ink); }
 .btn--light:hover{ background:#fff; border-color:var(--green); color:var(--green-700); }
 
-/* Кнопки-ссылки: цвет текста задаём явно для всех состояний ссылки.
-   Иначе в части браузеров (замечено в Яндекс.Браузере) <a class="btn">
-   берёт цвет от правила a{color:inherit} и текст на зелёной кнопке
-   получается тёмным вместо белого. */
-a.btn:link, a.btn:visited, a.btn:hover, a.btn:focus, a.btn:active{ color:#fff; }
-a.btn--outline:link, a.btn--outline:visited, a.btn--outline:focus{ color:var(--green); }
-a.btn--outline:hover, a.btn--outline:active{ color:var(--green-700); }
+/* Кнопки-ссылки: цвет текста задаём явно для всех состояний ссылки,
+   с !important. Иначе в части браузеров (замечено в Яндекс.Браузере)
+   <a class="btn"> берёт цвет от правила a{color:inherit} и текст на
+   зелёной кнопке получается тёмным вместо белого - причём обычная
+   специфичность класса эту конкретную трактовку каскада не перебивает. */
+a.btn:link, a.btn:visited, a.btn:hover, a.btn:focus, a.btn:active{ color:#fff !important; }
+a.btn--outline:link, a.btn--outline:visited, a.btn--outline:focus{ color:var(--green) !important; }
+a.btn--outline:hover, a.btn--outline:active{ color:var(--green-700) !important; }
 a.btn--pale:link, a.btn--pale:visited, a.btn--pale:hover,
-a.btn--pale:focus, a.btn--pale:active{ color:var(--green-700); }
-a.btn--light:link, a.btn--light:visited, a.btn--light:focus{ color:var(--ink); }
-a.btn--light:hover, a.btn--light:active{ color:var(--green-700); }
+a.btn--pale:focus, a.btn--pale:active{ color:var(--green-700) !important; }
+a.btn--light:link, a.btn--light:visited, a.btn--light:focus{ color:var(--ink) !important; }
+a.btn--light:hover, a.btn--light:active{ color:var(--green-700) !important; }
 
 .btn--lg{ min-height:70px; padding:18px 40px; }
 .btn--block{ width:100%; }
@@ -262,8 +263,8 @@ a.btn--light:hover, a.btn--light:active{ color:var(--green-700); }
 }
 .link-arrow i{ font-size:16px; transition:transform .35s var(--ease); }
 .link-arrow:hover{ gap:12px; color:var(--green-700); }
-a.link-arrow:link, a.link-arrow:visited, a.link-arrow:focus{ color:var(--green); }
-a.link-arrow:hover, a.link-arrow:active{ color:var(--green-700); }
+a.link-arrow:link, a.link-arrow:visited, a.link-arrow:focus{ color:var(--green) !important; }
+a.link-arrow:hover, a.link-arrow:active{ color:var(--green-700) !important; }
 .link-arrow:hover i{ transform:translate(2px,-2px); }
 
 /* ---------- 7. МЕЛКИЕ ЭЛЕМЕНТЫ ------------------------------------------- */
@@ -1165,14 +1166,16 @@ dialog.modal::backdrop{ background:rgba(27,27,27,.5); }
 .modal__max:hover{ background:#3a37e0; border-color:#3a37e0; color:#fff; }
 
 /* У кнопок мессенджеров тёмный текст на ярком фоне - задан намеренно.
-   Повторяем его для состояний ссылки, иначе общее правило a.btn:link
-   выше перекрасило бы их в белый. */
+   Повторяем его для состояний ссылки с тем же !important, иначе общее
+   правило a.btn:link выше (у него тоже !important) перекрасило бы их
+   в белый - при равном !important и равной специфичности побеждает
+   правило, которое идёт позже в файле, а это правило идёт позже. */
 a.modal__wa:link, a.modal__wa:visited, a.modal__wa:hover,
-a.modal__wa:focus, a.modal__wa:active{ color:#06331a; }
+a.modal__wa:focus, a.modal__wa:active{ color:#06331a !important; }
 a.modal__tg:link, a.modal__tg:visited, a.modal__tg:hover,
-a.modal__tg:focus, a.modal__tg:active{ color:#042a3d; }
+a.modal__tg:focus, a.modal__tg:active{ color:#042a3d !important; }
 a.modal__max:link, a.modal__max:visited, a.modal__max:hover,
-a.modal__max:focus, a.modal__max:active{ color:#fff; }
+a.modal__max:focus, a.modal__max:active{ color:#fff !important; }
 .modal__tel{ margin-top:22px; display:block; text-align:center; font-size:15px; color:var(--ink-2); }
 .modal__tel b{ display:block; margin-top:4px; font-size:23px; color:var(--ink); }
 /* кликабельная строка почты: копирует адрес в буфер, вместо mailto-ссылки -
