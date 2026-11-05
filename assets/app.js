@@ -126,7 +126,6 @@
      [data-modal-open] без значения открывает #callback (как раньше),
      со значением - модалку с этим id: data-modal-open="technologist". */
   var modals = document.querySelectorAll('dialog.modal');
-  var packageChoice = ''; // какое решение выбрали перед открытием формы #package
 
   function openModal(id) {
     var m = document.getElementById(id);
@@ -141,7 +140,6 @@
       e.preventDefault();
       setMenu(false);
       var modalId = opener.getAttribute('data-modal-open') || 'callback';
-      if (modalId === 'package') packageChoice = opener.getAttribute('data-package') || '';
       openModal(modalId);
     }
     var closer = e.target.closest('[data-modal-close]');
@@ -243,30 +241,27 @@
     });
   }
 
-  /* ---------- 5b. форма "выбрать решение": имя + телефон ---------------- */
-  var packageForm = document.getElementById('package-form');
+  /* ---------- 5b. кнопки "Выбрать решение" (блок "Три решения"): --------
+     переход в Telegram с приветственным сообщением, своим для каждого
+     из трёх решений - подставляется название из data-package. Текст в
+     ссылку вида t.me/+<phone> Telegram не подставляет (параметр ?text=
+     работает только для t.me/<username>), поэтому, как и у брифа, текст
+     копируется в буфер, а чат открывается рядом: вставить - Cmd/Ctrl+V. */
+  var packageBtns = document.querySelectorAll('[data-package]');
 
-  if (packageForm) {
-    var packageOut = document.getElementById('package-out');
-    var packageNote = document.getElementById('package-note');
-    var packageWa = document.getElementById('package-wa');
+  packageBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var pkg = btn.getAttribute('data-package') || '';
+      var text = 'Добрый день! Интересует решение «' + pkg + '». ' +
+        'Прошу проконсультировать по составу работ и стоимости.';
 
-    packageForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      if (typeof packageForm.reportValidity === 'function' && !packageForm.reportValidity()) return;
-      trackOrderGoal();
-
-      var name = packageForm.elements['Имя'].value.trim();
-      var phone = packageForm.elements['Телефон'].value.trim();
-      var text = 'Здравствуйте! Хочу выбрать решение' +
-        (packageChoice ? ' "' + packageChoice + '"' : '') + '.\nИмя: ' + name + '\nТелефон: ' + phone;
-
-      if (packageWa) packageWa.href = 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(text);
-      packageForm.hidden = true;
-      if (packageOut) packageOut.hidden = false;
-      if (packageNote) packageNote.hidden = false;
+      copyText(text);
+      showToast('Сообщение скопировано. Вставьте его в чат', 2200);
+      setTimeout(function () {
+        window.location.href = 'https://t.me/+' + WA_PHONE;
+      }, 2200);
     });
-  }
+  });
 
   /* ---------- 5c. форма "обсудить ваш объект" (блок "Для бизнеса"): ------
      имя + телефон, та же механика, что и у формы технолога. */
