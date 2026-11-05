@@ -145,9 +145,11 @@
      обычный переход по #id обратно - страница просто не прокручивается.
      Скроллим сами через requestAnimationFrame: это переживает движок
      Flexbe и работает так же на Tilda и на основном сайте.
-     Мало доехать один раз - на больших дистанциях движок Flexbe ещё
-     какое-то время по инерции тянет страницу обратно, поэтому после
-     завершения анимации ещё ~40 кадров силой держим конечную позицию. */
+     Мало доехать один раз - сопротивляясь, движок Flexbe накапливает
+     собственную "скорость" и, когда отпускаем, по инерции тянет страницу
+     обратно ещё секунду-две на дальних дистанциях. Поэтому после
+     завершения анимации ещё 150 кадров (~2.5с) силой держим конечную
+     позицию. */
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a[href^="#"]');
     if (!a) return;
@@ -170,7 +172,7 @@
       window.scrollTo(0, startY + (endY - startY) * eased);
       if (t < 1) { requestAnimationFrame(step); return; }
       lockFrames++;
-      if (lockFrames < 40) { window.scrollTo(0, endY); requestAnimationFrame(step); return; }
+      if (lockFrames < 150) { window.scrollTo(0, endY); requestAnimationFrame(step); return; }
       if (history.pushState) history.pushState(null, '', '#' + id);
     }
     requestAnimationFrame(step);
