@@ -519,6 +519,18 @@ a.link-arrow:hover, a.link-arrow:active{ color:var(--green-700) !important; }
   font-size:16px; font-weight:600;
   box-shadow:var(--shadow-sm);
 }
+/* Плашка акции: floating-бейдж поверх фото, как .ratings/.hero__tag - слева
+   выступает за край фото в просвет между колонками сетки. На мобильном
+   просвета между колонками нет (сетка в столбец), поэтому бейдж сдвигается
+   внутрь фото. */
+.hero__promo{
+  position:absolute; left:-20px; top:50%; transform:translateY(-50%); z-index:2;
+  width:216px; padding:22px 24px; border-radius:var(--r-card);
+  background:var(--green); color:#fff;
+  box-shadow:var(--shadow-lg);
+}
+.hero__promo b{ display:block; font-size:clamp(32px,3.6vw,40px); font-weight:700; line-height:1; }
+.hero__promo p{ margin-top:8px; font-size:14px; line-height:1.35; color:rgba(255,255,255,.88); }
 
 /* Бейджи рейтингов: Яндекс и 2ГИС, как на коммерческом макете */
 .ratings{
@@ -553,6 +565,8 @@ a.link-arrow:hover, a.link-arrow:active{ color:var(--green-700) !important; }
   .hero__grid{ grid-template-columns:1fr; }
   .hero__media{ order:-1; }
   .ratings{ right:12px; top:12px; }
+  .hero__promo{ left:16px; width:192px; padding:18px 20px; }
+  .hero__promo b{ font-size:32px; }
 }
 
 @media (max-width:560px){
@@ -563,6 +577,9 @@ a.link-arrow:hover, a.link-arrow:active{ color:var(--green-700) !important; }
   .rating__val b{ font-size:14px; }
   .rating__val span{ display:none; }
   .rating__stars{ font-size:11px; margin-top:1px; }
+  .hero__promo{ width:172px; padding:14px 16px; }
+  .hero__promo b{ font-size:28px; }
+  .hero__promo p{ margin-top:6px; font-size:12.5px; }
 }
 
 /* модификатор: бейджи у левого края фото (используется точечно, не на главной) */
