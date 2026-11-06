@@ -7,7 +7,8 @@
   'use strict';
 
   var reduced  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var WA_PHONE = '79362430591'; // общий номер WhatsApp - бриф-форма и форма вызова технолога
+  var WA_PHONE     = '79362430591'; // общий номер WhatsApp - бриф-форма и форма вызова технолога
+  var TG_USERNAME  = 'bestpaints_bp'; // паблик-юзернейм Telegram - только у него работает ?text=
 
   /* цель "order" в Яндекс.Метрике (счётчик 114048938) - фиксируем после
      успешной отправки любой формы "имя + телефон": звонок, технолог,
@@ -154,11 +155,9 @@
      обычный переход по #id обратно - страница просто не прокручивается.
      Скроллим сами через requestAnimationFrame: это переживает движок
      Flexbe и работает так же на Tilda и на основном сайте.
-     Мало доехать один раз - сопротивляясь, движок Flexbe накапливает
-     собственную "скорость" и, когда отпускаем, по инерции тянет страницу
-     обратно ещё секунду-две на дальних дистанциях. Поэтому после
-     завершения анимации ещё 150 кадров (~2.5с) силой держим конечную
-     позицию. */
+     Кривая ease-in-out - старт и финиш без рывка (резкий старт у
+     ease-out и читался как "скачок"). По завершении анимация ничего
+     не держит - колесо и жесты пользователя свободны сразу. */
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a[href^="#"]');
     if (!a) return;
@@ -172,16 +171,13 @@
     var endY = target.getBoundingClientRect().top + window.scrollY;
     var duration = reduced ? 1 : Math.min(1200, Math.max(350, Math.abs(endY - startY) * 0.6));
     var startTime = null;
-    var lockFrames = 0;
 
     function step(ts) {
       if (startTime === null) startTime = ts;
       var t = Math.min((ts - startTime) / duration, 1);
-      var eased = reduced ? 1 : 1 - Math.pow(1 - t, 3);
+      var eased = reduced ? 1 : (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
       window.scrollTo(0, startY + (endY - startY) * eased);
       if (t < 1) { requestAnimationFrame(step); return; }
-      lockFrames++;
-      if (lockFrames < 150) { window.scrollTo(0, endY); requestAnimationFrame(step); return; }
       if (history.pushState) history.pushState(null, '', '#' + id);
     }
     requestAnimationFrame(step);
@@ -215,9 +211,8 @@
 
   /* ---------- 5a. форма "вызвать технолога": имя + телефон --------------
      Два обязательных поля. По сабмиту собираем текст и подставляем его
-     в ссылку WhatsApp (Telegram текст в ссылку не принимает - так же,
-     как и остальные telegram-ссылки на сайте), дальше пользователь сам
-     нажимает и уходит в мессенджер. */
+     в ссылку WhatsApp, дальше пользователь сам нажимает и уходит в
+     мессенджер. */
   var techForm = document.getElementById('tech-form');
 
   if (techForm) {
@@ -242,11 +237,12 @@
   }
 
   /* ---------- 5b. кнопки "Выбрать решение" (блок "Три решения"): --------
-     переход в Telegram с приветственным сообщением, своим для каждого
-     из трёх решений - подставляется название из data-package. Текст в
-     ссылку вида t.me/+<phone> Telegram не подставляет (параметр ?text=
-     работает только для t.me/<username>), поэтому, как и у брифа, текст
-     копируется в буфер, а чат открывается рядом: вставить - Cmd/Ctrl+V. */
+     переход в Telegram с готовым сообщением в поле ввода - своим для
+     каждого из трёх решений, подставляется название из data-package.
+     ?text= подставляет текст в чат только у ссылки вида t.me/<username>
+     (у t.me/+<phone> параметр молча игнорируется), поэтому ссылка - на
+     паблик-юзернейм TG_USERNAME, а не на номер. Отправляет сообщение
+     сам человек - просто нажав "Отправить" в уже заполненном поле. */
   var packageBtns = document.querySelectorAll('[data-package]');
 
   packageBtns.forEach(function (btn) {
@@ -255,11 +251,7 @@
       var text = 'Добрый день! Интересует решение «' + pkg + '». ' +
         'Прошу проконсультировать по составу работ и стоимости.';
 
-      copyText(text);
-      showToast('Сообщение скопировано. Вставьте его в чат', 2200);
-      setTimeout(function () {
-        window.location.href = 'https://t.me/+' + WA_PHONE;
-      }, 2200);
+      window.location.href = 'https://t.me/' + TG_USERNAME + '?text=' + encodeURIComponent(text);
     });
   });
 
@@ -457,9 +449,10 @@
      Параметр ?text= (core.telegram.org/api/links) Telegram подставляет
      в поле ввода только для ссылок вида t.me/<username> - для ссылки
      по номеру телефона (t.me/+<phone>) он не работает, текст теряется.
-     Номер меняется чаще username, поэтому для Telegram и MAX бриф
-     одинаково копируется в буфер обмена, а чат открывается рядом:
-     вставить - Cmd/Ctrl+V. */
+     Поэтому Telegram-кнопка ведёт на паблик-юзернейм TG_USERNAME с
+     готовым текстом в поле ввода - дальше человек сам жмёт "Отправить".
+     У MAX такого параметра нет вовсе, поэтому для него бриф по-прежнему
+     копируется в буфер, а чат открывается рядом: вставить - Cmd/Ctrl+V. */
   var form = document.getElementById('brief-form');
 
   if (form) {
@@ -486,11 +479,7 @@
 
     if (sendTgBtn) {
       sendTgBtn.addEventListener('click', function () {
-        copyText(buildBrief());
-        showToast('Бриф скопирован. Отправьте его нам', 2200);
-        setTimeout(function () {
-          window.location.href = 'https://t.me/+79362430591';
-        }, 2200);
+        window.location.href = 'https://t.me/' + TG_USERNAME + '?text=' + encodeURIComponent(buildBrief());
       });
     }
     if (sendMaxBtn) {
