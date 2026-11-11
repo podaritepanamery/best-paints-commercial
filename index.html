@@ -17,6 +17,156 @@
 <link rel="preload" href="assets/fonts/TildaSans-VF.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts/phosphor.css">
 <link rel="stylesheet" href="assets/styles.css">
+
+<script>
+  window.uao_settings = {
+    interval: 15,
+    checkInterval: 5,
+    ym: 114048938,
+    ym_period_goal_prefix: 'ym_prefix',
+    data_layer_prefix: 'dl_prefix',
+    callback: function (seconds) { },
+  }
+
+  function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+  function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+  function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+  function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+  function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+  function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+  UAO_COUNT = 'uao_count';
+  UAO_GLOBAL_COUNT = 'uao_global_count';
+  var UALoop = /*#__PURE__*/function () {
+    function UALoop(goalInterval, checkInterval) {
+      _classCallCheck(this, UALoop);
+      _defineProperty(this, "uao_debugger", new UADebugger());
+      this.id = Math.random().toString(36);
+      this.goalInterval = goalInterval;
+      this.checkInterval = checkInterval;
+      this.uao_debugger.isEnabled = true;
+    }
+    _createClass(UALoop, [{
+      key: "targetCount",
+      get: function get() {
+        return Math.ceil(this.goalInterval / this.checkInterval);
+      }
+    }, {
+      key: "calculate",
+      value: function calculate() {
+        var _sessionStorage$getIt, _sessionStorage$getIt2;
+        var currentCount = (_sessionStorage$getIt = +sessionStorage.getItem(UAO_COUNT)) !== null && _sessionStorage$getIt !== void 0 ? _sessionStorage$getIt : 0;
+        currentCount = currentCount + 1;
+        sessionStorage.setItem(UAO_COUNT, currentCount.toString());
+        var globalCount = (_sessionStorage$getIt2 = +sessionStorage.getItem(UAO_GLOBAL_COUNT)) !== null && _sessionStorage$getIt2 !== void 0 ? _sessionStorage$getIt2 : 0;
+        globalCount = globalCount + 1;
+        sessionStorage.setItem(UAO_GLOBAL_COUNT, globalCount.toString());
+        this.uao_debugger.log("".concat(currentCount, " / ").concat(this.targetCount));
+        return currentCount === this.targetCount;
+      }
+    }]);
+    return UALoop;
+  }();
+  var UAObserver = /*#__PURE__*/function () {
+    function UAObserver(isLoggingEnabled) {
+      _classCallCheck(this, UAObserver);
+      _defineProperty(this, "events", ['touchmove', 'blur', 'focus', 'focusin', 'focusout', 'resize', 'scroll', 'click', 'dblclick', 'mousedown', 'mouseup', 'mousemove', 'mouseover', 'mouseout', 'mouseenter', 'mouseleave', 'change', 'select', 'submit', 'keydown', 'keypress', 'keyup', 'error', 'load'
+        //'unload'
+      ]);
+      _defineProperty(this, "loop", void 0);
+      _defineProperty(this, "uao_debugger", new UADebugger());
+      _defineProperty(this, "settings", window.uao_settings);
+      _defineProperty(this, "commit", false);
+      if (isLoggingEnabled) this.uao_debugger.isEnabled = true;
+    }
+    _createClass(UAObserver, [{
+      key: "loop",
+      set: function set(value) {
+        this.loop = value;
+      }
+    }, {
+      key: "start",
+      value: function start() {
+        this.addListeners();
+        this.init();
+      }
+    }, {
+      key: "addListeners",
+      value: function addListeners() {
+        var _this = this;
+        this.events.forEach(function (evtName) {
+          window.addEventListener(evtName, function (e) {
+            if (e.isTrusted) {
+              _this.commit = true;
+            }
+          });
+        });
+      }
+    }, {
+      key: "init",
+      value: function init() {
+        this.loop = new UALoop(this.settings.interval, this.settings.checkInterval);
+        //this.uao_debugger.log('init', this.loop.id)
+        this.setInterval();
+      }
+    }, {
+      key: "setInterval",
+      value: function setInterval() {
+        var _this2 = this;
+        if (+sessionStorage.getItem(UAO_COUNT) <= 0) sessionStorage.setItem(UAO_COUNT, '0');
+        if (+sessionStorage.getItem(UAO_GLOBAL_COUNT) <= 0) sessionStorage.setItem(UAO_GLOBAL_COUNT, '0');
+        var interval = window.setInterval(function () {
+          if (_this2.commit && _this2.loop.calculate()) {
+            clearInterval(interval);
+            if (_this2.settings) {
+              //this.uao_debugger.log('Достижение интервала активности основной цели');
+
+              var globalCount = sessionStorage.getItem(UAO_GLOBAL_COUNT);
+              var globalSeconds = globalCount * _this2.settings.checkInterval;
+              if (_this2.settings.callback) _this2.settings.callback(globalSeconds);
+              if (_this2.settings.ym_period_goal_prefix && _this2.settings.ym && window.ym) {
+                //this.uao_debugger.log('Достижение интервала активности периодической цели');
+                window.ym(_this2.settings.ym, 'reachGoal', "".concat(_this2.settings.ym_period_goal_prefix).concat(globalSeconds));
+              }
+              if (_this2.settings.data_layer_prefix && window.dataLayer) {
+                window.dataLayer.push({
+                  event: "".concat(_this2.settings.data_layer_prefix).concat(globalSeconds)
+                });
+              }
+            }
+            sessionStorage.setItem(UAO_COUNT, '0');
+            _this2.init();
+          }
+          _this2.commit = false;
+        }, this.loop.checkInterval * 1000);
+      }
+    }]);
+    return UAObserver;
+  }();
+  var UADebugger = /*#__PURE__*/function () {
+    function UADebugger() {
+      _classCallCheck(this, UADebugger);
+      _defineProperty(this, "isEnabled", false);
+    }
+    _createClass(UADebugger, [{
+      key: "isEnabled",
+      set: function set(value) {
+        this.isEnabled = value;
+      }
+    }, {
+      key: "log",
+      value: function log(message) {
+        var _console;
+        for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+          args[_key - 1] = arguments[_key];
+        }
+        if (this.isEnabled) (_console = console).log.apply(_console, [message].concat(args));
+      }
+    }]);
+    return UADebugger;
+  }();
+  new UAObserver(true).start();
+</script>
 </head>
 
 <body id="top">
