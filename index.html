@@ -24,6 +24,7 @@
     checkInterval: 5,
     ym: 114048938,
     ym_period_goal_prefix: 'ym_prefix',
+    ym_skip_seconds: [45, 75],
     data_layer_prefix: 'dl_prefix',
     callback: function (seconds) { },
   }
@@ -124,7 +125,7 @@
               var globalCount = sessionStorage.getItem(UAO_GLOBAL_COUNT);
               var globalSeconds = globalCount * _this2.settings.checkInterval;
               if (_this2.settings.callback) _this2.settings.callback(globalSeconds);
-              if (_this2.settings.ym_period_goal_prefix && _this2.settings.ym && window.ym) {
+              if (_this2.settings.ym_period_goal_prefix && _this2.settings.ym && window.ym && (!_this2.settings.ym_skip_seconds || _this2.settings.ym_skip_seconds.indexOf(globalSeconds) === -1)) {
                 //this.uao_debugger.log('Достижение интервала активности периодической цели');
                 window.ym(_this2.settings.ym, 'reachGoal', "".concat(_this2.settings.ym_period_goal_prefix).concat(globalSeconds));
               }
