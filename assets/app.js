@@ -227,7 +227,7 @@
 
       var name = techForm.elements['Имя'].value.trim();
       var phone = techForm.elements['Телефон'].value.trim();
-      var text = 'Здравствуйте! Хочу вызвать технолога.\nИмя: ' + name + '\nТелефон: ' + phone;
+      var text = 'Здравствуйте! Хочу вызвать замерщика.\nИмя: ' + name + '\nТелефон: ' + phone;
 
       if (techWa) techWa.href = 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(text);
       techForm.hidden = true;
