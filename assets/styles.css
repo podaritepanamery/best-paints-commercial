@@ -727,6 +727,20 @@ a.link-arrow:hover, a.link-arrow:active{ color:var(--green-700) !important; }
   -ms-overflow-style:none;
   padding:10px 0 14px;  /* запас под тень, её срезает overflow-y:hidden */
 }
+/* Лента во всю ширину экрана: выходит из узкого .wrap до краёв секции,
+   активная карточка по центру, соседние обрезаются краями экрана.
+   cqw считается от ширины секции (без полосы прокрутки), поэтому лента
+   не вылезает за экран на Windows, в отличие от 100vw.
+   Боковой padding = (экран - карточка) / 2: первая и последняя карточки
+   тоже встают по центру, а app.js по-прежнему считает слайд как
+   scrollLeft / шаг. */
+#works{ container-type:inline-size; }
+#works .cases{
+  --case-w:min(900px, calc(100cqw - 2 * var(--gutter) - clamp(44px, 12vw, 80px)));
+  margin-inline:calc(50% - 50cqw);
+  padding-inline:calc((100cqw - var(--case-w)) / 2);
+}
+#works .case{ flex:0 0 var(--case-w); scroll-snap-align:center; }
 .cases::-webkit-scrollbar{ display:none; }
 .cases:focus-visible{ outline:2px solid var(--green); outline-offset:6px; border-radius:var(--r-card); }
 @media (prefers-reduced-motion: reduce){ .cases{ scroll-behavior:auto; } }
