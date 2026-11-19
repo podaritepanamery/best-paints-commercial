@@ -357,6 +357,152 @@
 </section>
 
 
+<!-- ====================== БРИФ ====================== -->
+<section class="section section--warm" id="estimate">
+  <div class="wrap">
+
+    <div class="sec-head reveal">
+      <span class="eyebrow">01 / Ваш объект</span>
+      <h2 class="h2 dashed">Начнём <em class="accent">с понятного задания</em></h2>
+      <p class="body">
+        Выберите параметры помещения и отправьте бриф нам в Telegram или MAX -
+        вместе с ним можно сразу прислать фотографии или план.
+      </p>
+    </div>
+
+    <div class="brief reveal">
+
+      <aside class="brief__aside">
+        <h3>Что поможет оценить стоимость?</h3>
+        <p>Тип помещения, площадь покраски, состояние поверхностей и сроки.</p>
+        <p>Если точные размеры пока неизвестны, укажите ориентировочные и отметьте это в комментарии.</p>
+        <p>Форма создаёт бриф на вашем устройстве. После нажатия откроется Telegram с готовым сообщением — отправьте его в чате.</p>
+      </aside>
+
+      <form class="brief__form" id="brief-form">
+        <div class="fields">
+          <div class="field field--full">
+            <label for="f-pack">Решение для объекта</label>
+            <select id="f-pack" name="Решение">
+              <option>Нужна помощь с выбором</option>
+              <option>Быстрое обновление</option>
+              <option>Коммерческий стандарт</option>
+              <option>Большие площади</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-name">Имя</label>
+            <input id="f-name" name="Имя" type="text" autocomplete="name" placeholder="Как к вам обращаться" required>
+          </div>
+          <div class="field">
+            <label for="f-phone">Телефон</label>
+            <input id="f-phone" name="Телефон" type="tel" inputmode="tel" autocomplete="tel" minlength="10" placeholder="+7 (___) ___-__-__" required>
+          </div>
+          <div class="field">
+            <label for="f-type">Тип объекта</label>
+            <select id="f-type" name="Тип объекта">
+              <option>Офис / бизнес-центр</option>
+              <option>Магазин / шоурум</option>
+              <option>Ресторан / кафе</option>
+              <option>Склад / производство</option>
+              <option>Паркинг</option>
+              <option>Фитнес-клуб / студия</option>
+              <option>Другой объект</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-area">Площадь покраски, м²</label>
+            <input id="f-area" name="Площадь покраски, м²" type="number" min="0" step="1" inputmode="numeric" placeholder="Например, 800">
+          </div>
+          <div class="field">
+            <label for="f-surf">Какие поверхности?</label>
+            <select id="f-surf" name="Поверхности">
+              <option>Стены и потолки</option>
+              <option>Только стены</option>
+              <option>Только потолки</option>
+              <option>Стены, потолки и колонны</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-state">Состояние поверхностей</label>
+            <select id="f-state" name="Состояние поверхностей">
+              <option>Нужна оценка специалиста</option>
+              <option>Подготовлено к покраске</option>
+              <option>Нужен локальный ремонт</option>
+              <option>Нужна полная подготовка</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-sched">Предпочтительный график</label>
+            <select id="f-sched" name="График">
+              <option>Нужна консультация</option>
+              <option>Ночью</option>
+              <option>По выходным</option>
+              <option>Днём, по зонам</option>
+              <option>Сменный график</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-date">Желаемая дата окончания</label>
+            <input id="f-date" name="Желаемая дата окончания" type="date">
+          </div>
+          <div class="field field--full">
+            <label for="f-note">Сроки и особенности</label>
+            <textarea id="f-note" name="Комментарий" placeholder="Город, высота потолков, режим работы объекта, пожелания по срокам"></textarea>
+          </div>
+        </div>
+
+        <div class="brief__actions">
+          <button class="btn" type="submit" id="brief-send">
+            <i class="ph ph-paper-plane-tilt" aria-hidden="true"></i> Получить расчёт стоимости
+          </button>
+        </div>
+
+        <div class="brief__thanks" id="brief-confirmation" role="status" aria-live="polite" hidden>
+          <strong>Спасибо! Бриф подготовлен.</strong>
+          <p>Отправьте сообщение в открывшемся чате Telegram, чтобы мы получили заявку.</p>
+        </div>
+      </form>
+
+      <script>
+      (function () {
+        function initBrief() {
+          var form = document.getElementById('brief-form');
+          var confirmation = document.getElementById('brief-confirmation');
+          if (!form || !confirmation || form.dataset.briefReady) return;
+          form.dataset.briefReady = '1';
+          form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            if (!form.reportValidity()) return;
+            var lines = ['Запрос на смету. Best Paints', ''];
+            Array.prototype.forEach.call(form.elements, function (field) {
+              if (!field.name) return;
+              var value = (field.value || '').trim();
+              if (!value) return;
+              if (field.type === 'date') {
+                var parts = value.split('-');
+                value = parts[2] + '.' + parts[1] + '.' + parts[0];
+              }
+              lines.push(field.name + ': ' + value);
+            });
+            lines.push('', 'Отправлено с сайта Best Paints');
+            var url = 'https://t.me/bestpaints_bp?text=' + encodeURIComponent(lines.join('\n'));
+            confirmation.hidden = false;
+            var chat = window.open(url, '_blank');
+            if (chat) chat.opener = null;
+            confirmation.scrollIntoView({block:'nearest',behavior:'smooth'});
+          });
+        }
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initBrief);
+        else initBrief();
+      })();
+      </script>
+
+    </div>
+  </div>
+</section>
+
+
 <!-- ====================== ВВОДНЫЙ БЛОК ====================== -->
 <section class="section" id="about">
   <div class="wrap split">
@@ -398,7 +544,7 @@
 
     <div class="sec-head split reveal">
       <div>
-        <span class="eyebrow">01 / Объекты</span>
+        <span class="eyebrow">02 / Объекты</span>
         <h2 class="h2 dashed">Какие объекты <em class="accent">мы красим</em></h2>
       </div>
       <p class="body" style="align-self:end">
@@ -625,7 +771,7 @@
 
     <div class="does">
       <div class="does__aside reveal">
-      <span class="eyebrow">02 / Что делаем</span>
+      <span class="eyebrow">03 / Что делаем</span>
       <h2 class="h2 dashed">Всё, что нужно для <em class="accent">качественной покраски</em></h2>
       <p class="body">
         Состав работ формируется после оценки объекта. В смете отдельно отражаются
@@ -689,7 +835,7 @@
   <div class="wrap">
 
     <div class="sec-head reveal">
-      <span class="eyebrow">03 / Для бизнеса</span>
+      <span class="eyebrow">04 / Для бизнеса</span>
       <h2 class="h2 dashed"><strong>Управляем работами.</strong> <em class="accent">Вы планируете бизнес.</em></h2>
       <p class="body">
         Согласованный срок, прозрачные расходы и понятная ответственность
@@ -1144,7 +1290,7 @@
   <div class="wrap price">
 
     <div class="reveal">
-      <span class="eyebrow">04 / Стоимость</span>
+      <span class="eyebrow">05 / Стоимость</span>
       <h2 class="h2 dashed">Смета, в которой <em class="accent">понятна каждая строка</em></h2>
       <p class="body" style="margin-top:22px">
         Стоимость зависит от площади окрашиваемой поверхности, её состояния,
@@ -1187,7 +1333,7 @@
   <div class="wrap">
 
     <div class="sec-head reveal">
-      <span class="eyebrow">05 / Последовательность</span>
+      <span class="eyebrow">06 / Последовательность</span>
       <h2 class="h2 dashed"><strong>От задачи</strong> <em class="accent">к готовому помещению</em></h2>
     </div>
 
@@ -1236,154 +1382,8 @@
 </section>
 
 
-<!-- ====================== БРИФ ====================== -->
-<section class="section" id="estimate">
-  <div class="wrap">
-
-    <div class="sec-head reveal">
-      <span class="eyebrow">06 / Ваш объект</span>
-      <h2 class="h2 dashed">Начнём <em class="accent">с понятного задания</em></h2>
-      <p class="body">
-        Выберите параметры помещения и отправьте бриф нам в Telegram или MAX -
-        вместе с ним можно сразу прислать фотографии или план.
-      </p>
-    </div>
-
-    <div class="brief reveal">
-
-      <aside class="brief__aside">
-        <h3>Что поможет оценить стоимость?</h3>
-        <p>Тип помещения, площадь покраски, состояние поверхностей и сроки.</p>
-        <p>Если точные размеры пока неизвестны, укажите ориентировочные и отметьте это в комментарии.</p>
-        <p>Форма создаёт бриф на вашем устройстве. После нажатия откроется Telegram с готовым сообщением — отправьте его в чате.</p>
-      </aside>
-
-      <form class="brief__form" id="brief-form">
-        <div class="fields">
-          <div class="field field--full">
-            <label for="f-pack">Решение для объекта</label>
-            <select id="f-pack" name="Решение">
-              <option>Нужна помощь с выбором</option>
-              <option>Быстрое обновление</option>
-              <option>Коммерческий стандарт</option>
-              <option>Большие площади</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="f-name">Имя</label>
-            <input id="f-name" name="Имя" type="text" autocomplete="name" placeholder="Как к вам обращаться" required>
-          </div>
-          <div class="field">
-            <label for="f-phone">Телефон</label>
-            <input id="f-phone" name="Телефон" type="tel" inputmode="tel" autocomplete="tel" minlength="10" placeholder="+7 (___) ___-__-__" required>
-          </div>
-          <div class="field">
-            <label for="f-type">Тип объекта</label>
-            <select id="f-type" name="Тип объекта">
-              <option>Офис / бизнес-центр</option>
-              <option>Магазин / шоурум</option>
-              <option>Ресторан / кафе</option>
-              <option>Склад / производство</option>
-              <option>Паркинг</option>
-              <option>Фитнес-клуб / студия</option>
-              <option>Другой объект</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="f-area">Площадь покраски, м²</label>
-            <input id="f-area" name="Площадь покраски, м²" type="number" min="0" step="1" inputmode="numeric" placeholder="Например, 800">
-          </div>
-          <div class="field">
-            <label for="f-surf">Какие поверхности?</label>
-            <select id="f-surf" name="Поверхности">
-              <option>Стены и потолки</option>
-              <option>Только стены</option>
-              <option>Только потолки</option>
-              <option>Стены, потолки и колонны</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="f-state">Состояние поверхностей</label>
-            <select id="f-state" name="Состояние поверхностей">
-              <option>Нужна оценка специалиста</option>
-              <option>Подготовлено к покраске</option>
-              <option>Нужен локальный ремонт</option>
-              <option>Нужна полная подготовка</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="f-sched">Предпочтительный график</label>
-            <select id="f-sched" name="График">
-              <option>Нужна консультация</option>
-              <option>Ночью</option>
-              <option>По выходным</option>
-              <option>Днём, по зонам</option>
-              <option>Сменный график</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="f-date">Желаемая дата окончания</label>
-            <input id="f-date" name="Желаемая дата окончания" type="date">
-          </div>
-          <div class="field field--full">
-            <label for="f-note">Сроки и особенности</label>
-            <textarea id="f-note" name="Комментарий" placeholder="Город, высота потолков, режим работы объекта, пожелания по срокам"></textarea>
-          </div>
-        </div>
-
-        <div class="brief__actions">
-          <button class="btn" type="submit" id="brief-send">
-            <i class="ph ph-paper-plane-tilt" aria-hidden="true"></i> Отправить бриф
-          </button>
-        </div>
-
-        <div class="brief__thanks" id="brief-confirmation" role="status" aria-live="polite" hidden>
-          <strong>Спасибо! Бриф подготовлен.</strong>
-          <p>Отправьте сообщение в открывшемся чате Telegram, чтобы мы получили заявку.</p>
-        </div>
-      </form>
-
-      <script>
-      (function () {
-        function initBrief() {
-          var form = document.getElementById('brief-form');
-          var confirmation = document.getElementById('brief-confirmation');
-          if (!form || !confirmation || form.dataset.briefReady) return;
-          form.dataset.briefReady = '1';
-          form.addEventListener('submit', function (event) {
-            event.preventDefault();
-            if (!form.reportValidity()) return;
-            var lines = ['Запрос на смету. Best Paints', ''];
-            Array.prototype.forEach.call(form.elements, function (field) {
-              if (!field.name) return;
-              var value = (field.value || '').trim();
-              if (!value) return;
-              if (field.type === 'date') {
-                var parts = value.split('-');
-                value = parts[2] + '.' + parts[1] + '.' + parts[0];
-              }
-              lines.push(field.name + ': ' + value);
-            });
-            lines.push('', 'Отправлено с сайта Best Paints');
-            var url = 'https://t.me/bestpaints_bp?text=' + encodeURIComponent(lines.join('\n'));
-            confirmation.hidden = false;
-            var chat = window.open(url, '_blank');
-            if (chat) chat.opener = null;
-            confirmation.scrollIntoView({block:'nearest',behavior:'smooth'});
-          });
-        }
-        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initBrief);
-        else initBrief();
-      })();
-      </script>
-
-    </div>
-  </div>
-</section>
-
-
 <!-- ====================== FAQ ====================== -->
-<section class="section section--warm" id="faq">
+<section class="section" id="faq">
   <div class="wrap">
 
     <div class="sec-head reveal">

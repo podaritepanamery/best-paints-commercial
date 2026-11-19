@@ -978,6 +978,12 @@ a.link-arrow:hover, a.link-arrow:active{ color:var(--green-700) !important; }
 .brief__actions{ display:flex; flex-wrap:wrap; gap:12px; margin-top:28px; }
 @media (max-width:900px){ .brief{ grid-template-columns:1fr; } }
 @media (max-width:560px){ .fields{ grid-template-columns:1fr; } }
+/* «Получить расчёт стоимости» на телефоне держим в одну строку:
+   кнопка во всю ширину формы, поля уже; на совсем узких экранах
+   чуть меньше шрифт, а ниже 350px убираем иконку */
+@media (max-width:560px){ .brief__actions .btn{ width:100%; padding-inline:14px; gap:10px; } }
+@media (max-width:389px){ .brief__actions .btn{ font-size:16px; } }
+@media (max-width:349px){ .brief__actions .btn i{ display:none; } }
 
 /* ==========================================================================
    21. FAQ
