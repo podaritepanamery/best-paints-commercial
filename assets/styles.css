@@ -1173,7 +1173,7 @@ dialog.modal::backdrop{ background:rgba(27,27,27,.5); }
 }
 .modal__close:hover{ background:var(--bg-soft); }
 .modal__close i{ font-size:23px; }
-.modal h3{ font-size:26px; font-weight:700; line-height:1.15; }
+.modal h3{ font-size:26px; font-weight:700; line-height:1.15; padding-right:30px; } /* заголовок не заходит под крестик */
 .modal p{ margin-top:14px; font-size:16px; line-height:1.45; color:var(--ink-2); }
 .tech-form{ margin-top:24px; display:grid; gap:16px; }
 .modal__btns{ margin-top:26px; display:grid; gap:11px; }
