@@ -391,6 +391,7 @@
         var nums  = group.querySelectorAll('.case__stat b');
         if (!nums.length) return;
 
+        group.classList.remove('case__stats--row');
         stats.forEach(function (p) { p.classList.remove('case__stat--wide'); });
         nums.forEach(function (el) { el.style.fontSize = ''; });
 
@@ -398,6 +399,11 @@
         var fits = function (list) {
           return [].every.call(list, function (el) { return el.scrollWidth <= el.clientWidth + 1; });
         };
+
+        // две цифры, и одна не помещается в половину ("25 лестниц и 1 400 пог. м"):
+        // колонки по содержимому вместо половин - обе остаются в одной строке,
+        // а кегль уменьшается лишь чуть-чуть
+        if (stats.length === 2 && !fits(nums)) group.classList.add('case__stats--row');
 
         // шаг 1: вся строка цифр уменьшается вместе, одним размером
         while (!fits(nums) && size > MIN_STAT_FONT) {

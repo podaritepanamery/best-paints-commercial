@@ -817,6 +817,9 @@ a.link-arrow:hover, a.link-arrow:active{ color:var(--green-700) !important; }
    не должна резервировать место под пустую третью - иначе текст жмётся
    в треть ширины и переносится на каждом пробеле */
 .case__stats:has(.case__stat:nth-child(2):last-child){ grid-template-columns:repeat(2,minmax(0,1fr)); }
+/* длинная фраза в одной из двух ячеек: вторая колонка по ширине своей цифры,
+   остальное достаётся фразе (класс ставит app.js, fitStatNumbers) */
+.case__stats--row:has(.case__stat:nth-child(2):last-child){ grid-template-columns:minmax(0,1fr) min-content; }
 .case__stat{ min-width:0; }   /* иначе grid-item не даст колонке сжаться ниже max-content числа */
 /* Крайний случай: значение - не число, а длинная фраза, которая не влезает
    даже на минимальном кегле (app.js, fitStatNumbers). Тогда ей отдаётся вся
